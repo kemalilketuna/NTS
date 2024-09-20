@@ -64,6 +64,17 @@ const ProjectTableRow = ({ project, onRowClick }) => {
     );
 };
 
+const NoProjectRow = () => {
+    return (
+        <TableRow>
+            <TableCell colSpan={4}>
+                <Typography variant="body1" color='text.primary' textAlign='center'>
+                    No project has been itialized
+                </Typography>
+            </TableCell>
+        </TableRow>
+    );
+}
 
 const useStyles = makeStyles((theme) => ({
     tableContainer: {
@@ -154,13 +165,17 @@ const SearchPanel = () => {
                             <TableCell>Description</TableCell>
                             <TableCell>Creation Time</TableCell>
                         </TableRow>
-                        {projects.map((project) => (
-                            <ProjectTableRow
-                                key={project.id}
-                                project={project}
-                                onRowClick={(project) => navigate(`/project/${project.id}`)}
-                            />
-                        ))}
+                        {projects.length === 0 ? (
+                            <NoProjectRow />
+                        ) : (
+                            projects.map((project) => (
+                                <ProjectTableRow
+                                    key={project.id}
+                                    project={project}
+                                    onRowClick={(project) => navigate(`/project/${project.id}`)}
+                                />
+                            ))
+                        )}
                     </TableBody>
                 </Table>
             </TableContainer>
