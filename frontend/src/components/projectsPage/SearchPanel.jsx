@@ -18,80 +18,71 @@ import { useNavigate } from 'react-router-dom';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { makeStyles } from '@mui/styles';
 
-const formatDescription = (description) => {
-    if (!description) {
-        return "No description";
-    }
-    if (description.length > 30) {
-        return `${description.substring(0, 50)}...`;
-    }
-    return description;
-};
-
-const ProjectTableRow = ({ project, onRowClick }) => {
-    return (
-        <TableRow
-            key={project.id}
-            onClick={() => onRowClick(project)}
-            sx={{
-                cursor: 'pointer',
-                '&:hover': {
-                    backgroundColor: 'background.default',
-                },
-            }}
-        >
-            <TableCell>
-                <Box style={{ display: 'flex', alignItems: 'center' }}>
-                    <Box sx={{ width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <img src={project.icon} alt={project.name} style={{ maxWidth: '100%', maxHeight: '100%' }} />
-                    </Box>
-                    <Typography variant="body1" fontWeight={500} ml={1} mt={0.7} color='text.primary'>
-                        {project.name}
-                    </Typography>
-                </Box>
-            </TableCell>
-            <TableCell>
-                <Box style={{ display: 'flex', alignItems: 'center' }}>
-                    <Avatar sx={{ width: '30px', height: '30px' }} alt={project.created_by.username} src={project.created_by.profile_picture} />
-                    <Typography variant="body1" fontWeight={500} ml={1} mt={0.7} color='text.primary'>
-                        {project.created_by.username}
-                    </Typography>
-                </Box>
-            </TableCell>
-            <TableCell>{formatDescription(project.description)}</TableCell>
-            <TableCell>{format(new Date(project.created_at), 'yyyy-MM-dd HH:mm:ss')}</TableCell>
-        </TableRow>
-    );
-};
-
-const NoProjectRow = () => {
-    return (
-        <TableRow>
-            <TableCell colSpan={4}>
-                <Typography variant="body1" color='text.primary' textAlign='center'>
-                    No project has been itialized
-                </Typography>
-            </TableCell>
-        </TableRow>
-    );
-}
-
 const useStyles = makeStyles((theme) => ({
     tableContainer: {
-        maxHeight: '75vh', // Set the max height of the table container to make it scrollable
+        maxHeight: '75vh',
         overflowY: 'auto',
         '&::-webkit-scrollbar': {
-            display: 'none' // For Chrome, Safari, and Opera
+            display: 'none',
         },
     },
     tableHead: {
         '& th': {
             fontWeight: 'bold',
-            color: theme.palette.text.primary, // Ensure text color is white
+            color: theme.palette.text.primary,
             backgroundColor: theme.palette.background.paper,
         },
     },
 }));
+
+const formatDescription = (description) => {
+    if (!description) return "No description";
+    return description.length > 30 ? `${description.substring(0, 50)}...` : description;
+};
+
+const ProjectTableRow = ({ project, onRowClick }) => (
+    <TableRow
+        key={project.id}
+        onClick={() => onRowClick(project)}
+        sx={{
+            cursor: 'pointer',
+            '&:hover': {
+                backgroundColor: 'background.default',
+            },
+        }}
+    >
+        <TableCell>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src={project.icon} alt={project.name} style={{ maxWidth: '100%', maxHeight: '100%' }} />
+                </Box>
+                <Typography variant="body1" fontWeight={500} ml={1} mt={0.7} color='text.primary'>
+                    {project.name}
+                </Typography>
+            </Box>
+        </TableCell>
+        <TableCell>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar sx={{ width: '30px', height: '30px' }} alt={project.created_by.username} src={project.created_by.profile_picture} />
+                <Typography variant="body1" fontWeight={500} ml={1} mt={0.7} color='text.primary'>
+                    {project.created_by.username}
+                </Typography>
+            </Box>
+        </TableCell>
+        <TableCell>{formatDescription(project.description)}</TableCell>
+        <TableCell>{format(new Date(project.created_at), 'yyyy-MM-dd HH:mm:ss')}</TableCell>
+    </TableRow>
+);
+
+const NoProjectRow = () => (
+    <TableRow>
+        <TableCell colSpan={4}>
+            <Typography variant="body1" color='text.primary' textAlign='center'>
+                No project has been initialized
+            </Typography>
+        </TableCell>
+    </TableRow>
+);
 
 const SearchPanel = () => {
     const classes = useStyles();
@@ -102,14 +93,6 @@ const SearchPanel = () => {
 
     useEffect(() => {
         const fetchProjects = async () => {
-            const response = await apiClient.getProjects();
-            setProjects(response.results);
-        };
-        fetchProjects();
-    }, []);
-
-    useEffect(() => {
-        const fetchProjects = async () => {
             const response = await apiClient.getProjects(search);
             setProjects(response.results);
         };
@@ -117,27 +100,13 @@ const SearchPanel = () => {
     }, [search]);
 
     return (
-        <Box
-            sx={{
-                backgroundColor: 'background.paper',
-                borderRadius: 4,
-                minWidth: '70vw',
-            }}
-        >
+        <Box sx={{ backgroundColor: 'background.paper', borderRadius: 4, minWidth: '70vw' }}>
             <TableContainer component={Paper} className={classes.tableContainer}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead className={classes.tableHead}>
                         <TableRow>
                             <TableCell colSpan={4}>
-                                <Box
-                                    sx={{
-                                        display: 'flex',
-                                        flexDirection: 'row',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        width: '100%',
-                                    }}
-                                >
+                                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
                                     <TextField
                                         value={search}
                                         onChange={(e) => setSearch(e.target.value)}
@@ -145,18 +114,13 @@ const SearchPanel = () => {
                                         variant="outlined"
                                         size="small"
                                         fullWidth
-                                        sx={{
-                                            margin: 2,
-                                            mr: 1,
-                                        }}
+                                        sx={{ margin: 2, mr: 1 }}
                                         inputRef={inputRef}
                                     />
                                     <SearchOutlinedIcon />
                                 </Box>
                             </TableCell>
-
                         </TableRow>
-
                     </TableHead>
                     <TableBody>
                         <TableRow>
