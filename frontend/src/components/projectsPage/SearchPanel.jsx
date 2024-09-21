@@ -75,14 +75,14 @@ const ProjectTableRow = ({ project, onRowClick }) => (
         <TableCell padding='none' sx={{ width: 'auto' }}>
             {format(new Date(project.created_at), 'yyyy-MM-dd HH:mm:ss')}
         </TableCell>
-        <TableCell width='10px'>
+        <TableCell width={10} >
             <IconButton sx={{ height: '30px', width: '30px', backgroundColor: 'red' }} onClick={(e) => {
                 e.stopPropagation();
             }}>
                 <DeleteOutlinedIcon sx={{ color: 'white' }} />
             </IconButton>
         </TableCell>
-    </TableRow>
+    </TableRow >
 );
 
 const NoProjectRow = () => (
@@ -155,7 +155,7 @@ const SearchPanel = () => {
                     </TableHead>
                     <TableBody>
                         <TableRow>
-                            <TableCell>Project</TableCell>
+                            <TableCell sx={{ width: '30%' }}>Project</TableCell>
                             <TableCell>Created By</TableCell>
                             <TableCell>Description</TableCell>
                             <TableCell>Creation Time</TableCell>
