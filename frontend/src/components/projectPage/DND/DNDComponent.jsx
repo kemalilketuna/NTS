@@ -40,6 +40,7 @@ const DragAndDropComponent = () => {
     const { projectId } = useParams();
     const [columns, setColumns] = useState({});
     const [columnNames, setColumnNames] = useState({});
+    const [showInputID, setShowInputID] = useState('');
 
     useEffect(() => {
         const fetchIssues = async () => {
@@ -138,6 +139,8 @@ const DragAndDropComponent = () => {
                             <AddBoxButton
                                 columnId={columnId}
                                 handleAddBox={handleAddBox}
+                                showInputID={showInputID}
+                                setShowInputID={setShowInputID}
                             />
                         </ColumnPaper>
                     </Box>
