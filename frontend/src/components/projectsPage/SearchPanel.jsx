@@ -135,6 +135,7 @@ const SearchPanel = () => {
                                         placeholder="Search projects"
                                         variant="outlined"
                                         size="small"
+                                        maxLength={50}
                                         fullWidth
                                         sx={{ margin: 2, mr: 1 }}
                                         inputRef={inputRef}

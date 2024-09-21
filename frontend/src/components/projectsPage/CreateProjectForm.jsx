@@ -72,6 +72,7 @@ const CreateProjectForm = ({ onSubmit }) => {
                     id="name"
                     label="Project Name"
                     name="name"
+                    maxLength={50}
                     value={formValues.name}
                     onChange={handleInputChange}
                 />
@@ -80,6 +81,7 @@ const CreateProjectForm = ({ onSubmit }) => {
                     id="description"
                     label="Description"
                     name="description"
+                    maxLength={500}
                     value={formValues.description}
                     onChange={handleInputChange}
                     multiline

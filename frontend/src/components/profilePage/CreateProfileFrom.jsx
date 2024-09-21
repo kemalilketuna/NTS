@@ -138,6 +138,7 @@ function CreateProfileFrom() {
                     name="username"
                     value={profile.username}
                     onChange={handleChange}
+                    maxLength={40}
                     error={!!errors.username}
                     helperText={errors.username && errors.username[0]}
                 />
@@ -148,6 +149,7 @@ function CreateProfileFrom() {
                     type="email"
                     value={profile.email}
                     onChange={handleChange}
+                    maxLength={255}
                     error={!!errors.email}
                     helperText={errors.email && errors.email[0]}
                 />
@@ -157,6 +159,7 @@ function CreateProfileFrom() {
                     name="bio"
                     multiline
                     rows={4}
+                    maxLength={500}
                     value={profile.bio}
                     onChange={handleChange}
                     error={!!errors.bio}

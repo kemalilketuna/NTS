@@ -45,11 +45,13 @@ const AddBoxButton = ({ columnId, handleAddBox, showInputID, setShowInputID }) =
                             inputRef={inputRef}
                             value={newBoxContent}
                             onChange={handleInputChange}
+                            maxLength={50}
                             label="Issue title"
                             variant="outlined"
                             size="small"
                             sx={{
                                 flexGrow: 1,
+                                // backgroundColor: 'background.paper',
                                 '& .MuiOutlinedInput-root': {
                                     '& fieldset': {
                                         borderRight: 'none',
@@ -80,7 +82,7 @@ const AddBoxButton = ({ columnId, handleAddBox, showInputID, setShowInputID }) =
                     onClick={() => {
                         setShowInputID(columnId);
                     }}
-                    sx={{ marginTop: 2, backgroundColor: 'background.paper', color: highlightedColor, borderColor: highlightedColor }}
+                    sx={{ marginTop: 2, backgroundColor: 'background.default', color: highlightedColor, borderColor: highlightedColor }}
                     startIcon={<Add />}
                 >
                     <Box mt={0.35} p={0}>

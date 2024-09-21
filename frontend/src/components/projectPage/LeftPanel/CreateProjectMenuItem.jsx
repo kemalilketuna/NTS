@@ -55,6 +55,7 @@ function CreateProjectMenuItem() {
                             variant="outlined"
                             size="small"
                             fullWidth
+                            maxLength={50}
                             inputRef={inputRef}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
