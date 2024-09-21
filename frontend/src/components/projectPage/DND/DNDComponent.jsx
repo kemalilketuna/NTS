@@ -9,14 +9,12 @@ import { useParams } from 'react-router-dom';
 const ColumnPaper = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(2),
     minHeight: '40vh',
-    maxHeight: '70vh',
+    maxHeight: '75vh',
     backgroundColor: theme.palette.background.dark,
+    // backgroundColor: 'red',
     width: '20vw',
     borderRadius: '15x',
-    overflowY: 'auto',
-    '&::-webkit-scrollbar': {
-        display: 'none',
-    },
+
     display: 'flex',
     flexDirection: 'column',
 }));
@@ -116,30 +114,37 @@ const DragAndDropComponent = () => {
                             <Typography variant="h6" align="center" color="text.primary">
                                 {columnNames[columnId]}
                             </Typography>
-                            <Droppable droppableId={columnId}>
-                                {(provided) => (
-                                    <DroppableArea
-                                        {...provided.droppableProps}
-                                        ref={provided.innerRef}
-                                    >
-                                        {items.map((item, index) => (
-                                            <Draggable key={item.id} draggableId={String(item.id)} index={index}>
-                                                {(provided) => (
-                                                    <DraggableBox
-                                                        ref={provided.innerRef}
-                                                        {...provided.draggableProps}
-                                                        {...provided.dragHandleProps}
-                                                        elevation={2}
-                                                    >
-                                                        <Typography color="text.primary">{item.title}</Typography>
-                                                    </DraggableBox>
-                                                )}
-                                            </Draggable>
-                                        ))}
-                                        {provided.placeholder}
-                                    </DroppableArea>
-                                )}
-                            </Droppable>
+                            <Box sx={{
+                                overflowY: 'auto',
+                                '&::-webkit-scrollbar': {
+                                    display: 'none',
+                                },
+                            }}>
+                                <Droppable droppableId={columnId}>
+                                    {(provided) => (
+                                        <DroppableArea
+                                            {...provided.droppableProps}
+                                            ref={provided.innerRef}
+                                        >
+                                            {items.map((item, index) => (
+                                                <Draggable key={item.id} draggableId={String(item.id)} index={index}>
+                                                    {(provided) => (
+                                                        <DraggableBox
+                                                            ref={provided.innerRef}
+                                                            {...provided.draggableProps}
+                                                            {...provided.dragHandleProps}
+                                                            elevation={2}
+                                                        >
+                                                            <Typography color="text.primary">{item.title}</Typography>
+                                                        </DraggableBox>
+                                                    )}
+                                                </Draggable>
+                                            ))}
+                                            {provided.placeholder}
+                                        </DroppableArea>
+                                    )}
+                                </Droppable>
+                            </Box>
                             <AddBoxButton
                                 columnId={columnId}
                                 handleAddBox={handleAddBox}
