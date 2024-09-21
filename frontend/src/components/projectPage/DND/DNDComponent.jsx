@@ -11,7 +11,7 @@ const ColumnPaper = styled(Paper)(({ theme }) => ({
     minHeight: '40vh',
     maxHeight: '75vh',
     backgroundColor: theme.palette.background.dark,
-    width: '20vw',
+    width: '22vw',
     borderRadius: '15x',
 
     display: 'flex',
@@ -98,7 +98,7 @@ const DragAndDropComponent = () => {
 
     return (
         <DragDropContext onDragEnd={onDragEnd}>
-            <Box sx={{ display: 'flex', gap: 4 }}>
+            <Box sx={{ display: 'flex', gap: '3vw' }}>
                 {Object.entries(columns).map(([columnId, items]) => (
                     <Box key={columnId}>
                         <ColumnPaper elevation={3}>

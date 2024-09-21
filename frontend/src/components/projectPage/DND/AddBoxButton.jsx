@@ -35,7 +35,7 @@ const AddBoxButton = ({ columnId, handleAddBox, showInputID, setShowInputID }) =
 
     const theme = useTheme();
     const highlightedColor = theme.palette.mode === 'dark' ? theme.palette.text.primary : theme.palette.primary.main;
-    const addButtonColor = newBoxContent.length > 0 ? theme.palette.primary.main : theme.palette.background.paper;
+
     return (
         <>
             {showInputID === columnId ? (
@@ -68,7 +68,7 @@ const AddBoxButton = ({ columnId, handleAddBox, showInputID, setShowInputID }) =
                             variant="contained"
                             color="primary"
                             onClick={handleCreate}
-                            sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0, opacity: '0.9', backgroundColor: addButtonColor }}
+                            sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0, opacity: '0.9' }}
                         >
                             Add
                         </Button>

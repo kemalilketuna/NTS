@@ -22,14 +22,15 @@ function ProjectPage() {
                 </LeftPanel>
                 <Box sx={{
                     flex: 1, padding: 2, transition: 'margin-left 0.3s',
-                    marginLeft: isPanelOpen ? '16vw' : '2vw', // Adjust this value based on your panel width
+                    marginLeft: isPanelOpen ? '15vw' : '2vw', // Adjust this value based on your panel width
                 }}>
                     <Box sx={{
                         display: 'flex',
-                        flexDirection: 'column',
-                        justify_content: 'start',
+                        flexDirection: 'row',
+                        justifyContent: 'center',
                         alignItems: 'center',
-                        paddingTop: '15vh',
+                        width: '100%',
+                        marginTop: '12vh',
                     }}>
                         <DragAndDropComponent />
                     </Box>
