@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import {
     Table,
     TableBody,
@@ -102,17 +102,37 @@ const SearchPanel = () => {
     const [search, setSearch] = useState('');
     const inputRef = useRef(null);
 
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(false);
+    const [count, setCount] = useState(0);
+
+    const fetchProjects = useCallback(async (page, search) => {
+        setLoading(true);
+        const response = await apiClient.getProjects({ page: page, search: search });
+        setProjects((prevProjects) => [...prevProjects, ...response.results]);
+        setCount(response.count);
+        setLoading(false);
+    }, []);
+
     useEffect(() => {
-        const fetchProjects = async () => {
-            const response = await apiClient.getProjects({ search: search });
-            setProjects(response.results);
-        };
-        fetchProjects();
+        setProjects([]);
+        setPage(1);
     }, [search]);
+
+    useEffect(() => {
+        fetchProjects(page, search);
+    }, [fetchProjects, page, search]);
+
+    const handleScroll = (e) => {
+        const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+        if (bottom && !loading && count > projects.length) {
+            setPage(page + 1);
+        }
+    };
 
     return (
         <Box sx={{ backgroundColor: 'background.paper', borderRadius: 4, minWidth: '70vw' }}>
-            <TableContainer component={Paper} className={classes.tableContainer}>
+            <TableContainer component={Paper} className={classes.tableContainer} onScroll={handleScroll}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead className={classes.tableHead}>
                         <TableRow>
@@ -155,7 +175,7 @@ const SearchPanel = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Box>
+        </Box >
     );
 };
 
