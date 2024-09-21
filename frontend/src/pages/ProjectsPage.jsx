@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import Header from '../components/general/header/HeaderComponent';
 import { useAuthRedirect } from '../hooks/useAuthRedirect';
 import SearchPanel from '../components/projectsPage/SearchPanel';
+import CreateProject from '../components/projectsPage/CreateProject';
 
 const ProjectsPage = () => {
     useAuthRedirect();
@@ -18,14 +19,16 @@ const ProjectsPage = () => {
             <Box
                 sx={{
                     display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start',
-                    alignItems: 'center',
-                    height: '70vh',
-                    margin: 3,
+                    height: '75vh',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'flex-start',
+                    margin: 5,
+                    gap: 5,
                 }}
             >
                 <SearchPanel />
+                <CreateProject />
             </Box>
         </Box>
     );

@@ -122,7 +122,7 @@ const SearchPanel = () => {
     };
 
     return (
-        <Box sx={{ backgroundColor: 'background.paper', borderRadius: 4, minWidth: '70vw' }}>
+        <Box sx={{ backgroundColor: 'background.paper', borderRadius: 4, minWidth: '60vw' }}>
             <TableContainer component={Paper} className={classes.tableContainer} onScroll={handleScroll}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead className={classes.tableHead}>
