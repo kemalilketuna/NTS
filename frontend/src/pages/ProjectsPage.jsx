@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import Header from '../components/general/header/HeaderComponent';
+import HeaderComponent from '../components/general/header/HeaderComponent';
 import { useAuthRedirect } from '../hooks/useAuthRedirect';
 import SearchPanel from '../components/projectsPage/SearchPanel';
-import CreateProject from '../components/projectsPage/CreateProject';
+import CreateProjectForm from '../components/projectsPage/CreateProjectForm';
 
 const ProjectsPage = () => {
     useAuthRedirect();
@@ -15,7 +15,7 @@ const ProjectsPage = () => {
             flexDirection: 'column',
             justifyContent: 'center',
         }}>
-            <Header />
+            <HeaderComponent />
             <Box
                 sx={{
                     display: 'flex',
@@ -28,7 +28,7 @@ const ProjectsPage = () => {
                 }}
             >
                 <SearchPanel />
-                <CreateProject />
+                <CreateProjectForm />
             </Box>
         </Box>
     );

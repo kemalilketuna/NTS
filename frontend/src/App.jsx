@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import { lightTheme, darkTheme } from './theme.jsx';
+import { lightTheme, darkTheme } from './Theme.jsx';
 import { useSelector } from 'react-redux';
 import { selectTheme } from './redux/themeSlice.jsx';
 import { ToastContainer } from 'react-toastify';

@@ -36,6 +36,7 @@ const lightTheme = createTheme({
     },
     shape: {
         borderRadius: 8,
+
     },
     components: {
         MuiButton: {
@@ -88,6 +89,7 @@ const darkTheme = createTheme({
         background: {
             default: '#1d2125',
             paper: '#161a1d',
+            dark: '#161a1d'
         },
     },
     shape: {

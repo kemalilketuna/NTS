@@ -8,7 +8,6 @@ from .serializers import (
     ProjectSerializer,
     ProjectListSerializer,
 )
-from django.db import models
 from django.contrib.auth.models import Group
 from rest_framework.response import Response
 from rest_framework import status

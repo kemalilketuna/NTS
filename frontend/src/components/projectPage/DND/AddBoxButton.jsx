@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Box, TextField, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
+import { useTheme } from '@mui/material/styles';
 
 const AddBoxButton = ({ columnId, handleAddBox }) => {
     const [newBoxContent, setNewBoxContent] = useState('');
@@ -17,6 +18,8 @@ const AddBoxButton = ({ columnId, handleAddBox }) => {
         setNewBoxContent('');
     }
 
+    const theme = useTheme();
+    const highlightedColor = theme.palette.mode === 'dark' ? theme.palette.text.primary : theme.palette.primary.main;
     return (
         <>
             {showInput ? (
@@ -49,7 +52,7 @@ const AddBoxButton = ({ columnId, handleAddBox }) => {
                         onClick={() => {
                             handleCreate();
                         }}
-                        sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+                        sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0, opacity: '0.8' }}
                     >
                         Add
                     </Button>
@@ -57,14 +60,16 @@ const AddBoxButton = ({ columnId, handleAddBox }) => {
             ) : (
                 <Button
                     variant="outlined"
-                    color="primary"
+                    // color={theme.palette.mode === 'dark' ? theme.palette.text.primary : theme.palette.error.main}
                     onClick={() => {
                         setShowInput(true);
                     }}
-                    sx={{ marginTop: 2, backgroundColor: 'background.paper' }}
+                    sx={{ marginTop: 2, backgroundColor: 'background.paper', color: highlightedColor, borderColor: highlightedColor }}
                     startIcon={<Add />}
                 >
-                    Create
+                    <Box mt={0.35} p={0}>
+                        Create
+                    </Box>
                 </Button>
             )}
         </>

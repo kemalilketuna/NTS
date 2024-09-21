@@ -2,8 +2,9 @@ import React from 'react'
 import { Box } from '@mui/system'
 import NTSLogo from './NTSLogo'
 import SlideDownMenu from './SlideDownMenu'
+import { makeStyles } from '@mui/styles'
 
-const style = {
+const useStyles = makeStyles((theme) => ({
     header: {
         position: 'fixed',
         top: 0,
@@ -16,14 +17,17 @@ const style = {
         paddingRight: '2rem',
         height: '60px',
         borderBottom: '1px solid',
-        borderColor: 'border.main',
+        borderBottomColor: theme.palette.border.main,
         width: '100%',
     },
-}
+}));
+
 
 function Header() {
+    const classes = useStyles();
+
     return (
-        <Box sx={style.header} >
+        <Box className={classes.header} >
             <NTSLogo />
             <SlideDownMenu />
         </Box>

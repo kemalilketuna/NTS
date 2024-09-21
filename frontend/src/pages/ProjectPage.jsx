@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
-import Header from '../components/general/header/HeaderComponent';
+import HeaderComponent from '../components/general/header/HeaderComponent';
 import LeftPanel from '../components/projectPage/LeftPanel/LeftPanel';
 import LeftPanelChild from '../components/projectPage/LeftPanel/LeftPanelChild';
 import { useAuthRedirect } from '../hooks/useAuthRedirect';
@@ -15,7 +15,7 @@ function ProjectPage() {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-            <Header />
+            <HeaderComponent />
             <Box sx={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
                 <LeftPanel >
                     <LeftPanelChild />

@@ -138,19 +138,22 @@ class ApiClient {
         return data;
     }
 
-    async getProjects({ page = 1, search = '' }) {
+    async getProjects({ page = 1, search = '' } = {}) {
         const { data } = await this.apiClient.get(endpoints.project.search, {
-            params: { page: page, search: search },
+            params: { page: page ?? 1, search: search ?? '' },
         });
         return data;
     }
 
-    async createProject(projectName, projectDescription = null) {
+    async createProject(projectName, projectDescription = null, projectIcon = null) {
         const project = {
             name: projectName,
         };
         if (projectDescription !== null) {
             project.description = projectDescription;
+        }
+        if (projectIcon !== null) {
+            project.icon = projectIcon;
         }
         const { data } = await this.apiClient.post(endpoints.project.create, project);
         return data;

@@ -1,7 +1,27 @@
 import React, { useState } from 'react';
-import { TextField, Button, Box, Stack } from '@mui/material';
+import { TextField, Button, Box, Stack, Typography } from '@mui/material';
+import apiClient from '../../api/apiClient';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme) => ({
+    form: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: theme.spacing(2),
+        width: '100%',
+        maxWidth: '400px',
+        height: '100%',
+        border: '1px solid',
+        borderColor: theme.palette.border.main,
+        padding: theme.spacing(2.5),
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: theme.palette.background.default,
+    },
+}));
 
 const CreateProjectForm = ({ onSubmit }) => {
+    const classes = useStyles();
+
     const [formValues, setFormValues] = useState({
         name: '',
         description: '',
@@ -30,8 +50,9 @@ const CreateProjectForm = ({ onSubmit }) => {
     };
 
     return (
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box component="form" onSubmit={handleSubmit} className={classes.form}>
             <Stack spacing={2}>
+                <Typography variant="h4" sx={{ color: 'primary.main', fontWeight: '600', fontSize: '1.5rem' }}>Create Project</Typography>
                 <TextField
                     required
                     fullWidth
@@ -48,25 +69,17 @@ const CreateProjectForm = ({ onSubmit }) => {
                     name="description"
                     value={formValues.description}
                     onChange={handleInputChange}
+                    multiline
+                    rows={4}
                 />
-                <Button
-                    variant="contained"
-                    component="label"
-                >
-                    Upload Icon
-                    <input
-                        type="file"
-                        hidden
-                        name="icon"
-                        onChange={handleFileChange}
-                    />
-                </Button>
+
                 <Button
                     type="submit"
                     fullWidth
                     variant="contained"
+                    sx={{ backgroundColor: 'background.paper', color: 'text.primary' }}
                 >
-                    Submit
+                    Create Project
                 </Button>
             </Stack>
         </Box>
