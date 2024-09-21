@@ -3,8 +3,8 @@ from .models import Stage, Issue, AtachmentFile
 
 
 class ClomunAdmin(admin.ModelAdmin):
-    list_display = ("name", "description", "project")
-    search_fields = ("name", "description", "project__name")
+    list_display = ("name", "project")
+    search_fields = ("name", "project__name")
     list_filter = ("project",)
 
 
@@ -20,6 +20,7 @@ class IssueAdmin(admin.ModelAdmin):
         "created_by",
         "display_assigned_users",
         "priority",
+        "project",
         "updated_at",
         "created_at",
     )

@@ -22,7 +22,7 @@ function ProjectPage() {
                 </LeftPanel>
                 <Box sx={{
                     flex: 1, padding: 2, transition: 'margin-left 0.3s',
-                    marginLeft: isPanelOpen ? '15vw' : '2vw', // Adjust this value based on your panel width
+                    marginLeft: isPanelOpen ? '15vw' : '2vw', // Adjust this value based on panel width
                 }}>
                     <Box sx={{
                         display: 'flex',
