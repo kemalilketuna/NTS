@@ -11,7 +11,6 @@ const ColumnPaper = styled(Paper)(({ theme }) => ({
     minHeight: '40vh',
     maxHeight: '75vh',
     backgroundColor: theme.palette.background.dark,
-    // backgroundColor: 'red',
     width: '20vw',
     borderRadius: '15x',
 
@@ -39,52 +38,45 @@ const DroppableArea = styled('div')({
 
 const DragAndDropComponent = () => {
     const { projectId } = useParams();
-
     const [columns, setColumns] = useState({});
     const [columnNames, setColumnNames] = useState({});
 
     useEffect(() => {
         const fetchIssues = async () => {
             const response = await apiClient.getProjectDetail(projectId);
-            setColumns({});
+            const newColumns = {};
+            const newColumnNames = {};
+
             response.stages.forEach((column) => {
-                setColumns((prevColumns) => ({
-                    ...prevColumns,
-                    [column.id]: column.issues,
-                }));
-                setColumnNames((prevColumnNames) => ({
-                    ...prevColumnNames,
-                    [column.id]: column.name,
-                }));
+                newColumns[column.id] = column.issues;
+                newColumnNames[column.id] = column.name;
             });
+
+            setColumns(newColumns);
+            setColumnNames(newColumnNames);
         };
         fetchIssues();
     }, [projectId]);
 
     const onDragEnd = (result) => {
         const { source, destination } = result;
-
-        if (!destination) return;
-
-        if (
-            source.droppableId === destination.droppableId &&
-            source.index === destination.index
-        ) {
+        if (!destination || (source.droppableId === destination.droppableId && source.index === destination.index)) {
             return;
         }
 
-        const sourceColumn = Array.from(columns[source.droppableId]);
-        const [removed] = sourceColumn.splice(source.index, 1);
-        const destinationColumn = Array.from(columns[destination.droppableId]);
-        destinationColumn.splice(destination.index, 0, removed);
+        setColumns((prevColumns) => {
+            const newColumns = { ...prevColumns };
+            const sourceColumn = [...newColumns[source.droppableId]];
+            const destColumn = [...newColumns[destination.droppableId]];
+            const [removed] = sourceColumn.splice(source.index, 1);
+            destColumn.splice(destination.index, 0, removed);
 
-        setColumns((prevColumns) => ({
-            ...prevColumns,
-            [source.droppableId]: sourceColumn,
-            [destination.droppableId]: destinationColumn,
-        }));
+            newColumns[source.droppableId] = sourceColumn;
+            newColumns[destination.droppableId] = destColumn;
 
-        apiClient.updateIssueStage(removed.id, destination.droppableId);
+            apiClient.updateIssueStage(removed.id, destination.droppableId);
+            return newColumns;
+        });
     };
 
     const handleAddBox = async (columnId, newBoxContent) => {
@@ -92,13 +84,11 @@ const DragAndDropComponent = () => {
 
         try {
             const response = await apiClient.createIssue(newBoxContent, projectId, columnId);
-            const newBoxId = String(response.id); // Ensure newBoxId is a string
-            const newBox = { id: newBoxId, title: newBoxContent };
-            const newColumnItems = [...columns[columnId], newBox];
+            const newBox = { id: String(response.id), title: newBoxContent };
 
             setColumns((prevColumns) => ({
                 ...prevColumns,
-                [columnId]: newColumnItems,
+                [columnId]: [...prevColumns[columnId], newBox],
             }));
         } catch (error) {
             console.error('Error creating issue:', error);
