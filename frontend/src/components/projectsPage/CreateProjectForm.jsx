@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button, Box, Stack, Typography } from '@mui/material';
 import apiClient from '../../api/apiClient';
 import { makeStyles } from '@mui/styles';
+import ProjectIconSelectionComponent from './ProjectIconSelectionComponent';
 
 const useStyles = makeStyles((theme) => ({
     form: {
@@ -49,10 +50,22 @@ const CreateProjectForm = ({ onSubmit }) => {
         onSubmit(formValues);
     };
 
+    const handleRemoveFile = () => {
+        setFormValues({
+            ...formValues,
+            icon: null,
+        });
+    };
+
+    const icon = formValues.icon;
+
     return (
         <Box component="form" onSubmit={handleSubmit} className={classes.form}>
-            <Stack spacing={2}>
+            <Stack spacing={3}>
                 <Typography variant="h4" sx={{ color: 'primary.main', fontWeight: '600', fontSize: '1.5rem' }}>Create Project</Typography>
+                <Box sx={{ display: 'flex', justifyContent: 'center', pt: 1 }}>
+                    <ProjectIconSelectionComponent icon={icon} handleFileChange={handleFileChange} handleRemoveFile={handleRemoveFile} />
+                </Box>
                 <TextField
                     required
                     fullWidth

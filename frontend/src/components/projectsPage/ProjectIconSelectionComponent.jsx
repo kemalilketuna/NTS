@@ -3,15 +3,15 @@ import { IconButton, Avatar, Box } from '@mui/material';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const PictureSelectionComponent = ({ photo, handleFileChange, handleRemovePhoto }) => {
+const ProjectIconSelectionComponent = ({ icon, handleFileChange, handleRemoveFile }) => {
     const [hover, setHover] = useState(false);
 
     return (
         <Box
             style={{
                 position: 'relative',
-                width: '13vw',
-                height: '13vw',
+                width: '15vh',
+                height: '15vh',
             }}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
@@ -21,24 +21,24 @@ const PictureSelectionComponent = ({ photo, handleFileChange, handleRemovePhoto 
                 accept="image/*"
                 onChange={handleFileChange}
                 style={{ display: 'none' }}
-                id="upload-photo"
+                id="upload-icon"
             />
-            <label htmlFor="upload-photo">
+            <label htmlFor="upload-icon">
                 <Avatar
                     style={{
                         width: '100%',
                         height: '100%',
                         cursor: 'pointer',
-                        backgroundColor: photo ? 'transparent' : 'gray'
+                        backgroundColor: icon ? 'transparent' : 'gray'
                     }}
-                    src={photo || ''}
+                    src={icon || ''}
                 >
-                    {!photo && <AddPhotoAlternateIcon fontSize="large" sx={{ color: 'background.default' }} />}
+                    {!icon && <AddPhotoAlternateIcon sx={{ color: 'background.default' }} />}
                 </Avatar>
             </label>
-            {photo && hover && (
+            {icon && hover && (
                 <IconButton
-                    onClick={handleRemovePhoto}
+                    onClick={handleRemoveFile}
                     style={{
                         width: '100%',
                         height: '100%',
@@ -57,4 +57,4 @@ const PictureSelectionComponent = ({ photo, handleFileChange, handleRemovePhoto 
     );
 };
 
-export default PictureSelectionComponent;
+export default ProjectIconSelectionComponent;
