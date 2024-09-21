@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         borderColor: theme.palette.border.main,
         padding: theme.spacing(2.5),
         borderRadius: theme.shape.borderRadius,
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: theme.palette.background.paper,
     },
 }));
 
@@ -76,8 +76,8 @@ const CreateProjectForm = ({ onSubmit }) => {
                 <Button
                     type="submit"
                     fullWidth
-                    variant="contained"
-                    sx={{ backgroundColor: 'background.paper', color: 'text.primary' }}
+                    variant="outlined"
+                    sx={{ width: '70%', alignSelf: 'center', height: '40px', backgroundColor: 'background.paper' }}
                 >
                     Create Project
                 </Button>

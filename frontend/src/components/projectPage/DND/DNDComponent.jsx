@@ -13,7 +13,6 @@ const ColumnPaper = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.background.dark,
     width: '22vw',
     borderRadius: '15x',
-
     display: 'flex',
     flexDirection: 'column',
 }));
@@ -25,7 +24,7 @@ const DraggableBox = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
     borderRadius: '5px',
     border: '0.5px solid',
-    borderColor: '#ddd',
+    borderColor: theme.palette.border.main,
     cursor: 'grab',
 }));
 

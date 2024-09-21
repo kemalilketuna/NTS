@@ -8,6 +8,8 @@ const lightTheme = createTheme({
         mode: 'light',
         primary: {
             main: '#003049',
+            light: '#00527c',
+            dark: '#003049',
         },
         secondary: {
             main: '#c1121f',
@@ -65,7 +67,7 @@ const darkTheme = createTheme({
         primary: {
             main: '#E65100',
             light: '#FF8C3B',
-            dark: '#b33f00',
+            dark: '#d14c08',
         },
         secondary: {
             main: '#c1121f',

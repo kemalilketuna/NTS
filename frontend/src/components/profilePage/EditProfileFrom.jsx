@@ -172,7 +172,7 @@ function EditProfileFrom() {
                     }} variant="contained" size='small' sx={{ width: '10vw', backgroundColor: 'secondary.dark' }}>
                         Cancel
                     </Button>
-                    <Button type="submit" variant="contained" size='small' sx={{ width: '10vw', backgroundColor: 'primary.main' }}>
+                    <Button type="submit" variant="contained" size='small' sx={{ width: '10vw', backgroundColor: 'primary.dark' }}>
                         Save
                     </Button>
                 </Box>
