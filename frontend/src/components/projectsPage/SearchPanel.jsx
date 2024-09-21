@@ -17,6 +17,8 @@ import apiClient from '../../api/apiClient';
 import { useNavigate } from 'react-router-dom';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { makeStyles } from '@mui/styles';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import IconButton from '@mui/material/IconButton';
 
 const useStyles = makeStyles((theme) => ({
     tableContainer: {
@@ -70,7 +72,16 @@ const ProjectTableRow = ({ project, onRowClick }) => (
             </Box>
         </TableCell>
         <TableCell>{formatDescription(project.description)}</TableCell>
-        <TableCell>{format(new Date(project.created_at), 'yyyy-MM-dd HH:mm:ss')}</TableCell>
+        <TableCell padding='none' sx={{ width: 'auto' }}>
+            {format(new Date(project.created_at), 'yyyy-MM-dd HH:mm:ss')}
+        </TableCell>
+        <TableCell width='10px'>
+            <IconButton sx={{ height: '30px', width: '30px', backgroundColor: 'red' }} onClick={(e) => {
+                e.stopPropagation();
+            }}>
+                <DeleteOutlinedIcon sx={{ color: 'white' }} />
+            </IconButton>
+        </TableCell>
     </TableRow>
 );
 
@@ -105,7 +116,7 @@ const SearchPanel = () => {
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead className={classes.tableHead}>
                         <TableRow>
-                            <TableCell colSpan={4}>
+                            <TableCell colSpan={5}>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
                                     <TextField
                                         value={search}
@@ -128,6 +139,7 @@ const SearchPanel = () => {
                             <TableCell>Created By</TableCell>
                             <TableCell>Description</TableCell>
                             <TableCell>Creation Time</TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                         {projects.length === 0 ? (
                             <NoProjectRow />

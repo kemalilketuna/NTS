@@ -138,9 +138,9 @@ class ApiClient {
         return data;
     }
 
-    async getProjects(searchTerm = '') {
+    async getProjects(page = 1, searchTerm = '') {
         const { data } = await this.apiClient.get(endpoints.project.search, {
-            params: { search: searchTerm },
+            params: { search: searchTerm, page: page },
         });
         return data;
     }
