@@ -104,7 +104,7 @@ const SearchPanel = () => {
 
     useEffect(() => {
         const fetchProjects = async () => {
-            const response = await apiClient.getProjects(search);
+            const response = await apiClient.getProjects({ search: search });
             setProjects(response.results);
         };
         fetchProjects();
