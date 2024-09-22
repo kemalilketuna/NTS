@@ -39,19 +39,26 @@ const AddIssueButton = ({ columnId, handleAddBox, showInputID, setShowInputID })
         <>
             {showInputID === columnId ? (
                 <ClickAwayListener onClickAway={handleCancel}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', marginTop: 2 }}>
+                    <Box sx={{
+                        display: 'flex', alignItems: 'center',
+                        margin: -1.7,
+                        marginTop: 2
+                    }}>
                         <TextField
                             inputRef={inputRef}
                             value={newBoxContent}
                             onChange={handleInputChange}
-                            maxLength={50}
+                            maxLength={5}
                             multiline
-                            rows={3}
+                            rows={4}
                             variant="outlined"
                             size="small"
                             sx={{
                                 position: 'relative',
                                 flexGrow: 1,
+                                '& .MuiOutlinedInput-root': {
+                                    borderRadius: '4px',
+                                },
                             }}
                             slotProps={{
                                 input: {
@@ -86,12 +93,23 @@ const AddIssueButton = ({ columnId, handleAddBox, showInputID, setShowInputID })
                 </ClickAwayListener>
             ) : (
                 <Button
-                    variant="outlined"
                     onClick={() => {
                         setShowInputID(columnId);
                     }}
-                    sx={{ padding: 1.2, marginTop: 2, backgroundColor: 'background.default', color: highlightedColor, borderColor: highlightedColor }}
-                    startIcon={<Add />}
+                    sx={{
+                        padding: 1.2, backgroundColor: 'transparent', color: highlightedColor, borderColor: highlightedColor,
+                        margin: -2,
+                        marginTop: 0.5,
+                        borderRadius: 0,
+                        '&:hover': {
+                            backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                            color: highlightedColor,
+                            borderColor: highlightedColor,
+                        },
+                        textAlign: 'left', // Align text to the left
+                        justifyContent: 'flex-start', // Align items to the left
+                    }}
+                    startIcon={<Add sx={{ color: highlightedColor }} />}
                 >
                     <Box mt={0.35} p={0}>
                         Create
