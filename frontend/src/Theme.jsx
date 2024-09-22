@@ -35,6 +35,16 @@ const lightTheme = createTheme({
             primary: '#000000',
             secondary: '#262626',
         },
+        stageName: {
+            'TO DO': '#44546f',
+            'IN PROGRESS': '#0055cc',
+            'DONE': '#206e4e',
+        },
+        stageNameBackgroundColor: {
+            'TO DO': '#eaebee',
+            'IN PROGRESS': '#e9f2ff',
+            'DONE': '#dcfff1',
+        }
     },
     shape: {
         borderRadius: 8,
@@ -77,10 +87,6 @@ const darkTheme = createTheme({
         border: {
             main: '#333c44',
         },
-        text: {
-            primary: '#eee',
-            secondary: '#d4d4d4',
-        },
         contrast: {
             main: '#fff',
             soft: '#f5f5f5',
@@ -93,6 +99,20 @@ const darkTheme = createTheme({
             paper: '#161a1d',
             dark: '#161a1d'
         },
+        text: {
+            primary: '#eee',
+            secondary: '#d4d4d4',
+        },
+        stageName: {
+            'TO DO': '#9fadbc',
+            'IN PROGRESS': '#85b8ff',
+            'DONE': '#7de2b8',
+        },
+        stageNameBackgroundColor: {
+            'TO DO': '#21272d',
+            'IN PROGRESS': '#1c2b41',
+            'DONE': '#1c3329',
+        }
     },
     shape: {
         borderRadius: 8,
