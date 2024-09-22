@@ -37,9 +37,15 @@ class ProfileCreateView(generics.CreateAPIView):
     serializer_class = UserSerializer
 
     def create(self, request, *args, **kwargs):
+        max_size = 5 * 1024 * 1024  # 5MB
+        profile_picture = request.FILES.get("profile_picture")
+        if profile_picture and profile_picture.size > max_size:
+            return Response({"detail": "Profile picture size exceeds 5MB"}, status=400)
+
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             idToken = request.data.get("idToken")
+
             try:
                 decoded_token = auth.verify_id_token(idToken)
                 uid = decoded_token["uid"]
@@ -103,5 +109,10 @@ class ProfileUpdateView(generics.UpdateAPIView):
     def patch(self, request, *args, **kwargs):
         if "profile_picture" in request.data:
             if self.request.user.profile_picture:
+                max_size = 5 * 1024 * 1024  # 5MB
+                if self.request.user.profile_picture.size > max_size:
+                    return Response(
+                        {"detail": "Profile picture size exceeds 5MB"}, status=400
+                    )
                 self.request.user.profile_picture.delete()
         return super().patch(request, *args, **kwargs)
