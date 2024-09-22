@@ -90,7 +90,7 @@ const AddIssueButton = ({ columnId, handleAddBox, showInputID, setShowInputID })
                     onClick={() => {
                         setShowInputID(columnId);
                     }}
-                    sx={{ padding: 1.5, marginTop: 2, backgroundColor: 'background.default', color: highlightedColor, borderColor: highlightedColor }}
+                    sx={{ padding: 1.2, marginTop: 2, backgroundColor: 'background.default', color: highlightedColor, borderColor: highlightedColor }}
                     startIcon={<Add />}
                 >
                     <Box mt={0.35} p={0}>

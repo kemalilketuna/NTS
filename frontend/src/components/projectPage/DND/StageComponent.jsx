@@ -64,12 +64,16 @@ const StageComponent = ({ columnId, items, columnName, handleAddBox, showInputID
                     },
                     ml: -1.5,
                     mr: -1.5,
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
                 }}>
                     <Droppable droppableId={columnId}>
                         {(provided) => (
                             <DroppableArea
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
+                                style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
                             >
                                 {items.map((item, index) => (
                                     <IssueBox key={item.id} item={item} index={index} />
