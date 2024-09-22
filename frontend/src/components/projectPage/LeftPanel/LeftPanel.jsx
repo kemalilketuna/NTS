@@ -66,7 +66,7 @@ const LeftPanel = ({ children }) => {
                 position: 'fixed',
                 top: '60px',
                 left: 0,
-                width: '15vw',
+                width: '17vw',
                 height: 'calc(100vh - 64px)',
                 transform: open ? 'translateX(0)' : 'translateX(-90%)',
                 transition: 'transform 0.3s ease',

@@ -16,10 +16,10 @@ const style = {
         height: '3rem',
         width: '15rem',
         margin: '1rem',
-        backgroundColor: 'background.paper',
-        color: 'primary.main',
+        backgroundColor: 'contrast.soft',
+        color: 'background.paper',
         '&:hover': {
-            backgroundColor: 'background.default',
+            backgroundColor: 'contrast.main',
         },
     }
 }

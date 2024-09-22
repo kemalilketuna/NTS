@@ -29,7 +29,7 @@ const AuthComponent = () => {
             ...styles.authBox,
             borderColor: isDarkTheme ? '#ddd' : 'primary.main',
         }}>
-            <Typography variant='h5' marginBottom={2} sx={{
+            <Typography variant='h5' marginBottom={3} sx={{
                 color: 'text.primary',
                 fontSize: '1.5rem',
                 fontWeight: '600',

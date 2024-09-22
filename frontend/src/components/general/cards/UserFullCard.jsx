@@ -25,7 +25,7 @@ function UserFullCard({ user }) {
                     backgroundColor: isProfilePictureNull ? 'secondary.soft' : undefined,
                 }}
             >
-                <Typography fontWeight={600} color='background.default' marginTop={'3px'}>
+                <Typography fontWeight={600} color='white' marginTop={'3px'}>
                     {isProfilePictureNull ? usernameInitials : null}
                 </Typography>
             </Avatar>

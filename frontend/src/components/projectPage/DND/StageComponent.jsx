@@ -1,9 +1,10 @@
 import React from 'react';
-import { Droppable, Draggable } from '@hello-pangea/dnd';
+import { Droppable } from '@hello-pangea/dnd';
 import { Paper, Typography, Box } from '@mui/material';
 import { styled } from '@mui/system';
 import AddBoxButton from './AddBoxButton';
 import { useTheme } from '@mui/material/styles';
+import IssueBox from './IssueBox';
 const ColumnPaper = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(2),
     minHeight: '40vh',
@@ -16,16 +17,7 @@ const ColumnPaper = styled(Paper)(({ theme }) => ({
     userSelect: 'none',
 }));
 
-const DraggableBox = styled(Paper)(({ theme }) => ({
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(1),
-    backgroundColor: theme.palette.background.paper,
-    borderRadius: '3px',
-    border: '0.5px solid',
-    borderColor: theme.palette.mode === 'dark' ? theme.palette.text.primary : theme.palette.border.main,
-    cursor: 'grab',
-    minHeight: '80px',
-}));
+
 
 const DroppableArea = styled('div')({
     flex: 1,
@@ -33,6 +25,8 @@ const DroppableArea = styled('div')({
     flexDirection: 'column',
     minHeight: 200,
 });
+
+
 
 const StageComponent = ({ columnId, items, columnName, handleAddBox, showInputID, setShowInputID }) => {
     const theme = useTheme();
@@ -77,18 +71,7 @@ const StageComponent = ({ columnId, items, columnName, handleAddBox, showInputID
                                 ref={provided.innerRef}
                             >
                                 {items.map((item, index) => (
-                                    <Draggable key={item.id} draggableId={String(item.id)} index={index}>
-                                        {(provided) => (
-                                            <DraggableBox
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                                elevation={2}
-                                            >
-                                                <Typography color="text.primary">{item.title}</Typography>
-                                            </DraggableBox>
-                                        )}
-                                    </Draggable>
+                                    <IssueBox key={item.id} item={item} index={index} />
                                 ))}
                                 {provided.placeholder}
                             </DroppableArea>
