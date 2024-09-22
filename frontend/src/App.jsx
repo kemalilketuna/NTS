@@ -24,7 +24,7 @@ function App() {
         <Routes>
           <Route path="/" element={<AuthPage />} />
           <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/create-account" element={<CreateProfilePage />} />
+          <Route path="/create-profile" element={<CreateProfilePage />} />
           <Route path="/edit-profile" element={<EditProfilePage />} />
           <Route path="/project/:projectId" element={<ProjectPage />} />
           <Route path="/404" element={<Page404 />} />

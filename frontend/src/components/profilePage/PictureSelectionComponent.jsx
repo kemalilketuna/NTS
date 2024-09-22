@@ -29,7 +29,7 @@ const PictureSelectionComponent = ({ photo, handleFileChange, handleRemovePhoto 
                         width: '100%',
                         height: '100%',
                         cursor: 'pointer',
-                        backgroundColor: photo ? 'transparent' : 'gray'
+                        backgroundColor: photo ? 'transparent' : 'rgba(170, 170, 170, 1)',
                     }}
                     src={photo || ''}
                 >
@@ -46,7 +46,7 @@ const PictureSelectionComponent = ({ photo, handleFileChange, handleRemovePhoto 
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        backgroundColor: 'gray',
+                        backgroundColor: 'rgba(170, 170, 170, 0.7)',
                         borderRadius: '50%'
                     }}
                 >

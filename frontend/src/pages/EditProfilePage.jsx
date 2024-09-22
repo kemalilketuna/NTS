@@ -10,7 +10,7 @@ function EditProfilePage() {
     return (
         <Container maxWidth="sm" sx={{ mt: 2 }}>
             <Box sx={{ padding: 2 }}>
-                <Typography variant="h4" fontSize={'2rem'} color='text.primary' fontWeight={600} fontFamily={'Arial'}>
+                <Typography variant="h4" fontSize={'2rem'} pb={2} color='text.primary' fontWeight={600} fontFamily={'Arial'}>
                     Edit Profile
                 </Typography>
                 <EditProfileFrom />

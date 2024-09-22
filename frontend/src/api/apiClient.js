@@ -85,7 +85,7 @@ class ApiClient {
                     const { data } = await axios.post(`${endpoints.baseUrl}/auth/token/`, { idToken: idToken });
                     this.setAuthTokens(data.access, data.refresh);
                 } catch (error) {
-                    window.location.href = '/create-account';
+                    window.location.href = '/create-profile';
                 }
             } else {
                 console.log('No user signed in');

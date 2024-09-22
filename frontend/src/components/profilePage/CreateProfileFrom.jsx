@@ -139,6 +139,7 @@ function CreateProfileFrom() {
                     value={profile.username}
                     onChange={handleChange}
                     maxLength={40}
+                    required
                     error={!!errors.username}
                     helperText={errors.username && errors.username[0]}
                 />
@@ -150,6 +151,7 @@ function CreateProfileFrom() {
                     value={profile.email}
                     onChange={handleChange}
                     maxLength={255}
+                    required
                     error={!!errors.email}
                     helperText={errors.email && errors.email[0]}
                 />

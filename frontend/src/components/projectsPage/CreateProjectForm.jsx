@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CreateProjectForm = ({ onSubmit }) => {
+const CreateProjectForm = () => {
     const classes = useStyles();
 
     const [formValues, setFormValues] = useState({
@@ -46,8 +46,7 @@ const CreateProjectForm = ({ onSubmit }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Assuming onSubmit is a function passed as a prop to handle form submission
-        onSubmit(formValues);
+        console.log(formValues);
     };
 
     const handleRemoveFile = () => {
