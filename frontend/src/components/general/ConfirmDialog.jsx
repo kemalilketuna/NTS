@@ -8,6 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 
 const ConfirmDialog = ({ open, handleClose, handleConfirm, title, content }) => {
+
     const handleBackdropClick = (event) => {
         // Check if the click happened outside the dialog content
         if (event.target === event.currentTarget) {
@@ -16,18 +17,23 @@ const ConfirmDialog = ({ open, handleClose, handleConfirm, title, content }) => 
     };
 
     return (
-        <Dialog open={open} onClose={handleClose} onClick={handleBackdropClick}>
-            <DialogTitle>{title}</DialogTitle>
+        <Dialog
+            open={open}
+            onClose={handleClose}
+            onClick={handleBackdropClick}
+            PaperProps={{ style: { padding: '5px 20px 15px 20px' } }}
+        >
+            <DialogTitle sx={{ textAlign: 'center', color: 'primary.main', fontSize: '1.5rem' }}>{title}</DialogTitle>
             <DialogContent>
-                <DialogContentText>
+                <DialogContentText sx={{ fontSize: '1rem', color: 'text.primary' }}>
                     {content}
                 </DialogContentText>
             </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose} color="primary">
+            <DialogActions sx={{ justifyContent: 'space-evenly' }}>
+                <Button onClick={handleClose} color="secondary" size='large' sx={{ fontWeight: 600 }}>
                     Cancel
                 </Button>
-                <Button onClick={handleConfirm} color="primary">
+                <Button onClick={handleConfirm} color="text.secondary" size='large' sx={{ fontWeight: 600 }}>
                     Confirm
                 </Button>
             </DialogActions>
