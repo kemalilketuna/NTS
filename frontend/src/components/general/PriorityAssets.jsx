@@ -17,7 +17,7 @@ const GetPriorityAssests = (priorityChoice) => {
         case 5:
             return PriorityLowest;
         default:
-            return null;
+            return PriorityMedium;
     }
 }
 

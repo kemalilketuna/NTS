@@ -17,12 +17,10 @@ const DraggableBox = styled(Box)(({ theme }) => ({
     flexDirection: 'column',
 }));
 
-const PriorityLogo = ({ item, style }) => {
-    const priority = GetPriorityAssests(item.priority);
-    return <img style={{ width: '20px', height: '20px', ...style }} src={priority} alt="Priority" />;
-};
-
 const IssueBox = ({ item, index }) => {
+    const priority = item.priority || 3;
+    const priorityAsset = GetPriorityAssests(priority);
+
     return (
         <Draggable key={item.id} draggableId={String(item.id)} index={index}>
             {(provided) => (
@@ -38,7 +36,19 @@ const IssueBox = ({ item, index }) => {
                     >
                         {item.title}
                     </Typography>
-                    <PriorityLogo item={item} style={{ position: 'absolute', top: '5px', right: '5px' }} />
+                    {priorityAsset && (
+                        <img
+                            src={priorityAsset}
+                            alt={`Priority: ${priority}`}
+                            style={{
+                                width: '20px',
+                                height: '20px',
+                                position: 'absolute',
+                                top: '5px',
+                                right: '5px'
+                            }}
+                        />
+                    )}
                 </DraggableBox>
             )}
         </Draggable>
