@@ -18,6 +18,7 @@ const lightTheme = createTheme({
         },
         border: {
             main: '#ccc',
+            secondary: '#e6e6e6',
         },
         error: {
             main: '#780000',
@@ -87,6 +88,7 @@ const darkTheme = createTheme({
         },
         border: {
             main: '#333c44',
+            secondary: '#495661',
         },
         contrast: {
             main: '#fff',

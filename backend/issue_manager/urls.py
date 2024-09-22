@@ -8,4 +8,5 @@ issue_patterns = [
         IssueRetrieveUpdateDestroyAPIViewView.as_view(),
         name="issue-retrieve-update-destroy",
     ),
+    path("detail/<uuid:pk>/", IssueDetailView.as_view(), name="issue-detail"),
 ]

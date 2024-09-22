@@ -19,6 +19,7 @@ const endpoints = {
     issue: {
         create: '/issue/create/',
         update: '/issue/',
+        detail: '/issue/detail/',
     },
 }
 
