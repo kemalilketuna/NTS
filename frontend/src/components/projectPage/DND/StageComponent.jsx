@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Droppable } from '@hello-pangea/dnd';
 import { Paper, Typography, Box } from '@mui/material';
 import { styled } from '@mui/system';
 import AddIssueButton from './AddIssueButton';
 import { useTheme } from '@mui/material/styles';
 import IssueBox from './IssueBox';
+import Confetti from 'react-confetti';
 
 const ColumnPaper = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(2),
@@ -32,9 +33,35 @@ const StageComponent = ({ columnId, items, columnName, handleAddBox, showInputID
     const titleColor = theme.palette.stageName[columnName] || 'black';
     const backgroundColor = theme.palette.stageNameBackgroundColor[columnName] || 'white';
 
+    const [showConfetti, setShowConfetti] = useState(false);
+    const [prevItemsLength, setPrevItemsLength] = useState(items.length);
+    const columnRef = useRef(null);
+
+    useEffect(() => {
+        if (columnName === 'DONE' && items.length > prevItemsLength) {
+            setShowConfetti(true);
+        }
+        setPrevItemsLength(items.length);
+    }, [columnName, items.length, prevItemsLength]);
+
     return (
-        <Box key={columnId}>
+        <Box key={columnId} ref={columnRef}>
             <ColumnPaper elevation={3}>
+                {showConfetti && (
+                    <Confetti
+                        width={columnRef.current?.offsetWidth}
+                        height={columnRef.current?.offsetHeight + 100}
+                        numberOfPieces={400}
+                        speed={0.5}
+                        recycle={false}
+                        onConfettiComplete={() => setShowConfetti(false)}
+                        style={{
+                            position: 'absolute',
+                            top: columnRef.current?.offsetTop,
+                            left: columnRef.current?.offsetLeft,
+                        }}
+                    />
+                )}
                 <Box display='flex' justifyContent='space-between'>
                     <Box sx={{
                         backgroundColor: backgroundColor,
@@ -88,7 +115,7 @@ const StageComponent = ({ columnId, items, columnName, handleAddBox, showInputID
                     setShowInputID={setShowInputID}
                 />
             </ColumnPaper>
-        </Box>
+        </Box >
     );
 };
 
