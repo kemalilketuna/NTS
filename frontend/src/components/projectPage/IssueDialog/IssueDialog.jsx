@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Dialog, DialogTitle, DialogContent, Typography, Grow, IconButton } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, Grow, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import apiClient from '../../../api/apiClient';
+import IssueDialogContent from './IssueDialogContent';
 
 function IssueDialog({ open, handleClose, item }) {
     const [issueDetail, setIssueDetail] = useState(null);
@@ -11,7 +12,6 @@ function IssueDialog({ open, handleClose, item }) {
             const fetchIssueDetail = async () => {
                 try {
                     const response = await apiClient.getIssueDetail(item.id);
-                    console.log(response);
                     setIssueDetail(response.data);
                 } catch (error) {
                     console.error('Error fetching issue detail:', error);
@@ -20,8 +20,6 @@ function IssueDialog({ open, handleClose, item }) {
             fetchIssueDetail();
         }
     }, [open, item.id]);
-
-    console.log(issueDetail);
 
     return (
         <Dialog
@@ -36,24 +34,21 @@ function IssueDialog({ open, handleClose, item }) {
                 sx: { height: '85vh', maxWidth: '85vw', borderRadius: '5px', border: '1px solid', borderColor: 'border.secondary' }
             }}
         >
-            <DialogTitle sx={{ m: 0, p: 2, pr: 6 }}>
+            <IconButton
+                aria-label="close"
+                onClick={handleClose}
+                sx={{
+                    position: 'absolute',
+                    right: 8,
+                    top: 8,
+                    color: 'text.primary'
+                }}
+            >
+                <CloseIcon />
+            </IconButton>
 
-                <IconButton
-                    aria-label="close"
-                    onClick={handleClose}
-                    sx={{
-                        position: 'absolute',
-                        right: 8,
-                        top: 8,
-                        color: 'text.primary'
-                    }}
-                >
-                    <CloseIcon />
-                </IconButton>
-            </DialogTitle>
             <DialogContent>
-                <Typography variant="h6">{item.title}</Typography>
-                <Typography>Priority: {item.priority}</Typography>
+                <IssueDialogContent issueDetail={issueDetail} />
             </DialogContent>
         </Dialog>
     )

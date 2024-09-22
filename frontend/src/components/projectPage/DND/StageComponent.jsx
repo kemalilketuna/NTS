@@ -19,14 +19,12 @@ const ColumnPaper = styled(Paper)(({ theme }) => ({
 }));
 
 
-
 const DroppableArea = styled('div')({
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
     minHeight: 200,
 });
-
 
 
 const StageComponent = ({ columnId, items, columnName, handleAddBox, showInputID, setShowInputID }) => {
