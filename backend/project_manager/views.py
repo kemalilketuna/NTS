@@ -37,11 +37,6 @@ class ProjectRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
         if "icon" in request.data:
             project = self.get_object()
             if project.icon:
-                max_size = 5 * 1024 * 1024  # 5MB
-                if project.icon.size > max_size:
-                    return Response(
-                        {"detail": "Project icon size exceeds 5MB"}, status=400
-                    )
                 project.icon.delete()
         return super().patch(request, *args, **kwargs)
 
@@ -65,13 +60,6 @@ class ProjectDetailView(generics.RetrieveAPIView):
 class ProjectCreateView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = ProjectSerializer
-
-    def post(self, request, *args, **kwargs):
-        max_size = 5 * 1024 * 1024  # 5MB
-        icon = request.FILES.get("icon")
-        if icon and icon.size > max_size:
-            return Response({"detail": "Project icon size exceeds 5MB"}, status=400)
-        return super().post(request, *args, **kwargs)
 
 
 class ProjectListView(generics.ListAPIView):
