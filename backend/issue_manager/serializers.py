@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Stage, Issue, AtachmentFile
 from project_manager.models import Project
+from rest_framework.exceptions import PermissionDenied
 
 
 class IssueSerializer(serializers.ModelSerializer):
@@ -23,27 +24,28 @@ class IssueSerializer(serializers.ModelSerializer):
         read_only_fields = ["created_by", "updated_at", "created_at"]
 
     def create(self, validated_data):
-        request = self.context["request"]
-        user = request.user
+        user = self.context["request"].user
         project = Project.objects.get(id=validated_data["project"])
-        stage = Stage.objects.get(id=validated_data["stage"])
 
-        issue = Issue.objects.create(
+        if not user.has_perm("project_manager.edit_project", project):
+            raise PermissionDenied(
+                "You don't have permission to create issues in this project."
+            )
+
+        return Issue.objects.create(
             title=validated_data["title"],
-            stage=stage,
+            stage_id=validated_data["stage"],
             project=project,
             created_by=user,
         )
-        return issue
 
     def update(self, instance, validated_data):
-        instance.title = validated_data.get("title", instance.title)
-        instance.priority = validated_data.get("priority", instance.priority)
-        if validated_data.get("stage"):
-            try:
-                instance.stage = Stage.objects.get(id=validated_data["stage"])
-            except Stage.DoesNotExist:
-                pass
+        if "stage" in validated_data:
+            instance.stage_id = validated_data.pop("stage")
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
         instance.save()
         return instance
 

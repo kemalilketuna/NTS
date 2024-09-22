@@ -6,14 +6,12 @@ from issue_manager.models import Stage, Issue, AtachmentFile
 class IsProjectMember(BasePermission):
     def has_object_permission(self, request, view, obj):
         user = request.user
+        if isinstance(obj, (Stage, Issue, AtachmentFile)):
+            return user.has_perm(
+                "project_manager.edit_project", getattr(obj, "project", None)
+            )
         if isinstance(obj, Project):
             return user.has_perm("project_manager.edit_project", obj)
-        elif (
-            isinstance(obj, Stage)
-            or isinstance(obj, Issue)
-            or isinstance(obj, AtachmentFile)
-        ):
-            return user.has_perm("project_manager.edit_project", obj.project)
         return False
 
 
