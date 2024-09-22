@@ -6,7 +6,6 @@ from user_manager.serializers import UserSerializer
 
 
 class ProjectSerializer(serializers.ModelSerializer):
-    description = serializers.CharField(required=False)
 
     class Meta:
         model = Project

@@ -145,17 +145,17 @@ class ApiClient {
         return data;
     }
 
-    async createProject(projectName, projectDescription = null, projectIcon = null) {
-        const project = {
-            name: projectName,
-        };
-        if (projectDescription !== null) {
-            project.description = projectDescription;
+    async createProject(project) {
+        const formData = new FormData();
+        for (const key in project) {
+            if (project[key] !== null) {
+                formData.append(key, project[key]);
+            }
         }
-        if (projectIcon !== null) {
-            project.icon = projectIcon;
-        }
-        const { data } = await this.apiClient.post(endpoints.project.create, project);
+
+        const { data } = await this.apiClient.post(endpoints.project.create, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        });
         return data;
     }
 

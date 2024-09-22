@@ -12,10 +12,10 @@ def assign_permissions(sender, instance, created, **kwargs):
     if not created:
         return
     admin_group = PermissionGroup.objects.create(
-        name=f"{instance.name} Admins", project=instance
+        name=f"{instance.id} Admins", project=instance
     )
     member_group = PermissionGroup.objects.create(
-        name=f"{instance.name} Members", project=instance
+        name=f"{instance.id} Members", project=instance
     )
     assign_perm("project_manager.admin_project", admin_group, instance)
     assign_perm("project_manager.edit_project", member_group, instance)

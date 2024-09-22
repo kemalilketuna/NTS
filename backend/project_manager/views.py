@@ -22,8 +22,23 @@ class ProjectRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_permissions(self):
         if self.request.method in ["GET", "HEAD"]:
-            self.permission_classes = [IsAuthenticated, IsProjectMember]
+            return [permission() for permission in [IsAuthenticated, IsProjectMember]]
         return super().get_permissions()
+
+    def get_serializer(self, *args, **kwargs):
+        data = kwargs.get("data")
+        payload = data.copy()
+        if payload.get("icon") == "null":
+            payload["icon"] = None
+        kwargs["data"] = payload
+        return super().get_serializer(*args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        if "icon" in request.data:
+            project = self.get_object()
+            if project.icon:
+                project.icon.delete()
+        return super().patch(request, *args, **kwargs)
 
 
 class ProjectDetailView(generics.RetrieveAPIView):

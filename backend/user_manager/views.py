@@ -32,7 +32,7 @@ class TokenPairView(APIView):
             return Response({"detail": "Invalid ID token"}, status=400)
 
 
-class CreateProfileView(generics.CreateAPIView):
+class ProfileCreateView(generics.CreateAPIView):
     permission_classes = [AllowAny]
     serializer_class = UserSerializer
 
@@ -68,7 +68,7 @@ class SearchUserListView(generics.ListAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
     filter_backends = [filters.SearchFilter]
-    search_fields = ["first_name", "last_name", "username", "email"]
+    search_fields = ["username", "email"]
 
 
 class UserDetailView(generics.RetrieveAPIView):

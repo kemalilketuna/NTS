@@ -16,8 +16,9 @@ function CreateProjectMenuItem() {
         setIsCreating(false);
         if (newProjectName.trim()) {
             try {
-                const project = await apiClient.createProject(newProjectName);
-                navigate(`/project/${project.id}`);
+                const project = { name: newProjectName };
+                const data = await apiClient.createProject(project);
+                navigate(`/project/${data.id}`);
             } catch (error) {
                 notify('Failed to create project');
             }

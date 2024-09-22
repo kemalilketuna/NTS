@@ -13,7 +13,7 @@ user_patterns = [
 account_patterns = [
     path("me/", ProfileView.as_view(), name="profile"),
     path("update/", ProfileUpdateView.as_view(), name="update_profile"),
-    path("create/", CreateProfileView.as_view(), name="create_profile"),
+    path("create/", ProfileCreateView.as_view(), name="create_profile"),
 ]
 
 auth_patterns = [
