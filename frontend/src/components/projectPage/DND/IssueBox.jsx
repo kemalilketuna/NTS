@@ -12,12 +12,14 @@ const DraggableBox = styled(Box)(({ theme }) => ({
     borderColor: theme.palette.border.main,
     cursor: 'grab',
     minHeight: '80px',
-    position: 'relative', // Added for positioning child elements
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
 }));
 
-const PriorityLogo = ({ item, style }) => { // Added style prop
+const PriorityLogo = ({ item, style }) => {
     const priority = GetPriorityAssests(item.priority);
-    return <img style={{ width: '20px', height: '20px', ...style }} src={priority} alt="Priority" />; // Merged styles
+    return <img style={{ width: '20px', height: '20px', ...style }} src={priority} alt="Priority" />;
 };
 
 const IssueBox = ({ item, index }) => {
@@ -32,7 +34,7 @@ const IssueBox = ({ item, index }) => {
                 >
                     <Typography
                         color="text.primary"
-                        style={{ whiteSpace: 'normal', overflow: 'hidden', textOverflow: 'ellipsis' }} // Added styles for multiline
+                        style={{ flexGrow: 1, overflowWrap: 'break-word', wordWrap: 'break-word', marginRight: '20px' }}
                     >
                         {item.title}
                     </Typography>
