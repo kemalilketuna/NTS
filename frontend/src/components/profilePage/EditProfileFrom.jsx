@@ -172,10 +172,10 @@ function EditProfileFrom() {
                 }}>
                     <Button onClick={() => {
                         navigate(-1);
-                    }} variant="contained" size='small' sx={{ width: '10vw', backgroundColor: 'secondary.dark' }}>
+                    }} size='large' color='secondary' sx={{ width: '10vw' }}>
                         Cancel
                     </Button>
-                    <Button type="submit" variant="contained" size='small' sx={{ width: '10vw', backgroundColor: 'primary.dark' }}>
+                    <Button type="submit" size='large' sx={{ width: '10vw' }}>
                         Save
                     </Button>
                 </Box>

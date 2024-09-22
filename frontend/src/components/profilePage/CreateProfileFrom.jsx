@@ -165,7 +165,7 @@ function CreateProfileFrom() {
                     error={!!errors.bio}
                     helperText={errors.bio && errors.bio[0]}
                 />
-                <Button type="submit" variant="contained" sx={{ backgroundColor: 'primary.dark', width: '40%', alignSelf: 'center' }}>
+                <Button type="submit" size='large' sx={{ width: '40%', alignSelf: 'center' }}>
                     Save Changes
                 </Button>
             </Stack>

@@ -25,26 +25,20 @@ function SlideDownMenu() {
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
 
-    useEffect(() => {
-        if (user === null) {
-            dispatch(fetchUser());
-        }
-    }, []);
+    // State management
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
 
+    // Fetch user on mount and when user changes
     useEffect(() => {
         if (user === null) {
             dispatch(fetchUser());
         }
     }, [dispatch, user]);
 
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
-    const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
-
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
+    // Event handlers
+    const handleClick = (event) => setAnchorEl(event.currentTarget);
     const handleClose = () => {
         setAnchorEl(null);
         setConfirmDialogOpen(false);
@@ -58,7 +52,6 @@ function SlideDownMenu() {
     const handleSignOut = () => {
         setAnchorEl(null);
         setConfirmDialogOpen(true);
-        // Remove the handleClose() call here
     };
 
     const handleConfirmSignOut = () => {
@@ -67,13 +60,9 @@ function SlideDownMenu() {
         signOutFromApp();
     };
 
-    const handleCancelSignOut = () => {
-        setConfirmDialogOpen(false);
-    };
+    const handleCancelSignOut = () => setConfirmDialogOpen(false);
 
-    if (user === null) {
-        return null;
-    }
+    if (user === null) return null;
 
     return (
         <Box>
