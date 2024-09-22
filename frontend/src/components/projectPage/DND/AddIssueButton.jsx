@@ -1,11 +1,10 @@
-// AddBoxButton.js
 import React, { useState, useEffect, useRef } from 'react';
-import { Box, TextField, Button, ClickAwayListener } from '@mui/material';
+import { Box, TextField, Button, ClickAwayListener, InputAdornment } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
+import { MdKeyboardReturn } from "react-icons/md";
 
-
-const AddBoxButton = ({ columnId, handleAddBox, showInputID, setShowInputID }) => {
+const AddIssueButton = ({ columnId, handleAddBox, showInputID, setShowInputID }) => {
     const [newBoxContent, setNewBoxContent] = useState('');
     const inputRef = useRef(null);
 
@@ -46,19 +45,36 @@ const AddBoxButton = ({ columnId, handleAddBox, showInputID, setShowInputID }) =
                             value={newBoxContent}
                             onChange={handleInputChange}
                             maxLength={50}
-                            label="Issue title"
+                            multiline
+                            rows={3}
                             variant="outlined"
                             size="small"
                             sx={{
+                                position: 'relative',
                                 flexGrow: 1,
-                                // backgroundColor: 'background.paper',
-                                '& .MuiOutlinedInput-root': {
-                                    '& fieldset': {
-                                        borderRight: 'none',
-                                        borderTopRightRadius: 0,
-                                        borderBottomRightRadius: 0,
-                                    }
-                                }
+                            }}
+                            slotProps={{
+                                input: {
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <Button
+                                                variant="contained"
+                                                size="small"
+                                                color="primary"
+                                                onClick={handleCreate}
+                                                endIcon={<MdKeyboardReturn style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)', borderRadius: '3px' }} />}
+                                                sx={{
+                                                    height: '27px',
+                                                    borderRadius: '4px', opacity: '0.9',
+                                                    position: 'absolute', bottom: 5, right: 5,
+                                                    padding: '0px 10px',
+                                                }}
+                                            >
+                                                Create
+                                            </Button>
+                                        </InputAdornment>
+                                    ),
+                                },
                             }}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
@@ -66,14 +82,6 @@ const AddBoxButton = ({ columnId, handleAddBox, showInputID, setShowInputID }) =
                                 }
                             }}
                         />
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={handleCreate}
-                            sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0, opacity: '0.9' }}
-                        >
-                            Add
-                        </Button>
                     </Box>
                 </ClickAwayListener>
             ) : (
@@ -82,7 +90,7 @@ const AddBoxButton = ({ columnId, handleAddBox, showInputID, setShowInputID }) =
                     onClick={() => {
                         setShowInputID(columnId);
                     }}
-                    sx={{ marginTop: 2, backgroundColor: 'background.default', color: highlightedColor, borderColor: highlightedColor }}
+                    sx={{ padding: 1.5, marginTop: 2, backgroundColor: 'background.default', color: highlightedColor, borderColor: highlightedColor }}
                     startIcon={<Add />}
                 >
                     <Box mt={0.35} p={0}>
@@ -94,4 +102,4 @@ const AddBoxButton = ({ columnId, handleAddBox, showInputID, setShowInputID }) =
     );
 };
 
-export default AddBoxButton;
+export default AddIssueButton;

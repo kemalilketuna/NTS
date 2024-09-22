@@ -2,9 +2,10 @@ import React from 'react';
 import { Droppable } from '@hello-pangea/dnd';
 import { Paper, Typography, Box } from '@mui/material';
 import { styled } from '@mui/system';
-import AddBoxButton from './AddBoxButton';
+import AddIssueButton from './AddIssueButton';
 import { useTheme } from '@mui/material/styles';
 import IssueBox from './IssueBox';
+
 const ColumnPaper = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(2),
     minHeight: '40vh',
@@ -78,7 +79,7 @@ const StageComponent = ({ columnId, items, columnName, handleAddBox, showInputID
                         )}
                     </Droppable>
                 </Box>
-                <AddBoxButton
+                <AddIssueButton
                     columnId={columnId}
                     handleAddBox={handleAddBox}
                     showInputID={showInputID}
