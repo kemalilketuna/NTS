@@ -93,7 +93,7 @@ const darkTheme = createTheme({
             soft: '#f5f5f5',
         },
         error: {
-            main: '#ab0000',
+            main: '#ed0303',
         },
         background: {
             default: '#1d2125',

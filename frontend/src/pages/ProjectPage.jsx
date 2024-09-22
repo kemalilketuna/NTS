@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Box } from '@mui/material';
 import HeaderComponent from '../components/general/header/HeaderComponent';
 import LeftPanel from '../components/projectPage/LeftPanel/LeftPanel';

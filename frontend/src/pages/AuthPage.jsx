@@ -3,7 +3,6 @@ import { Box, Grid2 } from '@mui/material';
 import AuthComponent from '../components/authPage/AuthComponent';
 import NTSTitle from '../components/authPage/NTSTitle';
 import { useAuthRedirect } from '../hooks/useAuthRedirect';
-import ChangeThemeButton from '../components/general/ChangeThemeButton';
 
 const styles = {
     page: {

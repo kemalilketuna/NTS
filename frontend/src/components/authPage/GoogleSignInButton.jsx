@@ -3,7 +3,6 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
 import { Button } from '@mui/material';
 import { FcGoogle } from "react-icons/fc";
-import apiClient from '../../api/apiClient';
 
 const provider = new GoogleAuthProvider().setCustomParameters({
     prompt: 'select_account'
@@ -31,6 +30,7 @@ const GoogleSignInButton = () => {
         try {
             await signInWithPopup(auth, provider);
             await apiClient.initialize();
+            await new Promise(resolve => setTimeout(resolve, 1000));
         } catch (error) {
             console.error(error);
         }

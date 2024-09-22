@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, MenuItem, Grow, Typography, Box, Divider } from '@mui/material';
-import { selectUser, fetchUser } from '../../../redux/userSlice';
+import { selectUser, fetchUser, clearUser } from '../../../redux/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { signOutFromApp } from '../../../api/utils';
 import { useNavigate } from 'react-router-dom';
 import UserFullCard from '../cards/UserFullCard';
 import AvatarButton from './AvatarButton';
 import ChangeThemeButton from '../ChangeThemeButton';
+import ConfirmDialog from '../ConfirmDialog';
 
 const style = {
     menu: {
@@ -38,6 +39,7 @@ function SlideDownMenu() {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+    const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -45,6 +47,7 @@ function SlideDownMenu() {
 
     const handleClose = () => {
         setAnchorEl(null);
+        setConfirmDialogOpen(false);
     };
 
     const handleEditProfile = () => {
@@ -53,8 +56,19 @@ function SlideDownMenu() {
     };
 
     const handleSignOut = () => {
+        setAnchorEl(null);
+        setConfirmDialogOpen(true);
+        // Remove the handleClose() call here
+    };
+
+    const handleConfirmSignOut = () => {
+        setConfirmDialogOpen(false);
+        dispatch(clearUser());
         signOutFromApp();
-        handleClose();
+    };
+
+    const handleCancelSignOut = () => {
+        setConfirmDialogOpen(false);
     };
 
     if (user === null) {
@@ -95,16 +109,23 @@ function SlideDownMenu() {
                     my: 1,
                 }} />
                 <MenuItem onClick={handleEditProfile}>
-                    <Typography color='text.primary' fontWeight={500} fontSize={17} marginLeft={1} sx={{ opacity: '0.8' }}>
+                    <Typography color='text.primary' fontWeight={600} fontSize={17} marginLeft={1} sx={{ opacity: '0.8' }}>
                         Edit Profile
                     </Typography>
                 </MenuItem>
-                <MenuItem onClick={handleSignOut} >
-                    <Typography color='error.main' fontWeight={500} fontSize={17} marginLeft={1} sx={{ opacity: '0.8' }} >
+                <MenuItem onClick={handleSignOut}>
+                    <Typography color='error.main' fontWeight={600} fontSize={17} marginLeft={1} sx={{ opacity: '0.8' }} >
                         Sign Out
                     </Typography>
                 </MenuItem>
             </Menu >
+            <ConfirmDialog
+                open={confirmDialogOpen}
+                handleClose={handleCancelSignOut}
+                handleConfirm={handleConfirmSignOut}
+                title="Confirm Sign Out"
+                content="Are you sure you want to sign out?"
+            />
         </Box >
     );
 }

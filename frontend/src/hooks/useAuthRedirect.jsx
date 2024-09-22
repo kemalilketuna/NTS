@@ -13,7 +13,7 @@ export function useAuthRedirect() {
             if (user && !navigated) {
                 navigate('/projects');
             } else if (!user && navigated) {
-                window.location.href = '/';
+                navigate('/');
             }
         });
 
