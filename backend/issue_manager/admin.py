@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Stage, Issue, AtachmentFile
+from .models import Stage, Issue, AttachmentFile
 
 
 class ClomunAdmin(admin.ModelAdmin):
@@ -8,8 +8,8 @@ class ClomunAdmin(admin.ModelAdmin):
     list_filter = ("project",)
 
 
-class AtachmentFileInline(admin.StackedInline):
-    model = AtachmentFile
+class AttachmentFileInline(admin.StackedInline):
+    model = AttachmentFile
     extra = 1
 
 
@@ -35,7 +35,7 @@ class IssueAdmin(admin.ModelAdmin):
     list_filter = ("priority", "created_at", "assigned_to")
     filter_horizontal = ("assigned_to",)
     autocomplete_fields = ("created_by",)
-    inlines = [AtachmentFileInline]
+    inlines = [AttachmentFileInline]
 
 
 admin.site.register(Stage, ClomunAdmin)

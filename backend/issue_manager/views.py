@@ -42,3 +42,16 @@ class IssueDetailView(generics.RetrieveAPIView):
             .prefetch_related("comments__created_by")
             .get(id=self.kwargs["pk"])
         )
+
+
+class AttachmentFileCreateView(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = AttachmentFileSerializer
+
+
+class AttachmentFileDeleteView(generics.DestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = AttachmentFileSerializer
+
+    def get_queryset(self):
+        return AttachmentFile.objects.filter(issue_id=self.kwargs["pk"])

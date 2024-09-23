@@ -10,3 +10,12 @@ issue_patterns = [
     ),
     path("detail/<uuid:pk>/", IssueDetailView.as_view(), name="issue-detail"),
 ]
+
+attachment_patterns = [
+    path("create/", AttachmentFileCreateView.as_view(), name="attachment-file-create"),
+    path(
+        "<uuid:pk>/delete/",
+        AttachmentFileDeleteView.as_view(),
+        name="attachment-file-delete",
+    ),
+]

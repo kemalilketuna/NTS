@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Stage, Issue, AtachmentFile, Comment
+from .models import Stage, Issue, AttachmentFile, Comment
 from project_manager.models import Project
 from rest_framework.exceptions import PermissionDenied
 from user_manager.serializers import UserSerializer
@@ -60,9 +60,9 @@ class StageSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class AtachmentFileSerializer(serializers.ModelSerializer):
+class AttachmentFileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = AtachmentFile
+        model = AttachmentFile
         fields = "__all__"
 
 
@@ -76,7 +76,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class IssueDetailSerializer(serializers.ModelSerializer):
-    attachments = AtachmentFileSerializer(many=True, read_only=True)
+    attachments = AttachmentFileSerializer(many=True, read_only=True)
     comments = CommentSerializer(many=True, read_only=True)
     created_by = UserSerializer(read_only=True)
     assigned_to = UserSerializer(read_only=True, many=True)

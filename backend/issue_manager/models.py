@@ -51,17 +51,26 @@ class Issue(models.Model):
         return self.title
 
 
-class AtachmentFile(models.Model):
+class AttachmentFile(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=255)
     file = models.FileField(storage=AttachmentStorage, upload_to="./")
     uploaded_to = models.ForeignKey(
-        Issue, on_delete=models.CASCADE, related_name="attachments"
+        Issue,
+        on_delete=models.CASCADE,
+        related_name="attachments",
     )
     project = models.ForeignKey(
         Project,
         on_delete=models.CASCADE,
         related_name="attachments",
         editable=False,
+    )
+    created_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        related_name="attachments",
+        null=True,
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -71,12 +80,19 @@ class AtachmentFile(models.Model):
 
 class Comment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    issue = models.ForeignKey(Issue, on_delete=models.CASCADE, related_name="comments")
+    issue = models.ForeignKey(
+        Issue,
+        on_delete=models.CASCADE,
+        related_name="comments",
+    )
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, related_name="comments", editable=False
     )
     created_by = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="comments"
+        User,
+        on_delete=models.SET_NULL,
+        related_name="comments",
+        null=True,
     )
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

@@ -38,7 +38,6 @@ const DescriptionPanel = ({ issueDetail, setIssueDetail }) => {
                 <Box
                     onClick={() => setEditorOpen(true)}
                     sx={{
-                        mt: 1,
                         cursor: 'pointer',
                         border: `1px solid transparent`,
                         '&:hover': {
