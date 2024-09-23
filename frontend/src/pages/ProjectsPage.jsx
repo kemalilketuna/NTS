@@ -5,6 +5,7 @@ import { useAuthRedirect } from '../hooks/useAuthRedirect';
 import SearchPanel from '../components/projectsPage/SearchPanel';
 import CreateProjectForm from '../components/projectsPage/CreateProjectForm';
 
+
 const ProjectsPage = () => {
     useAuthRedirect();
 

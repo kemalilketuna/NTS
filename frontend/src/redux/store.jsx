@@ -4,6 +4,7 @@ import userSlice from './userSlice';
 import themeSlice from './themeSlice';
 import projectsSlice from './projectsSlice';
 import panelSlice from './panelSlice';
+import projectSlice from './projectSlice';
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
         theme: themeSlice,
         projects: projectsSlice,
         panelIsOpen: panelSlice,
+        project: projectSlice,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

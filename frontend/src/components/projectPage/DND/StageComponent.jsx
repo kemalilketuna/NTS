@@ -28,7 +28,7 @@ const DroppableArea = styled('div')({
 });
 
 
-const StageComponent = ({ columnId, items, columnName, handleAddBox, showInputID, setShowInputID }) => {
+const StageComponent = ({ columnId, items, columnName, handleAddIssue, showInputID, setShowInputID }) => {
     const theme = useTheme();
     const titleColor = theme.palette.stageName[columnName] || 'black';
     const backgroundColor = theme.palette.stageNameBackgroundColor[columnName] || 'white';
@@ -100,7 +100,7 @@ const StageComponent = ({ columnId, items, columnName, handleAddBox, showInputID
                                 ref={provided.innerRef}
                                 style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
                             >
-                                {items.map((item, index) => (
+                                {items.length > 0 && items.map((item, index) => (
                                     <IssueBox key={item.id} item={item} index={index} />
                                 ))}
                                 {provided.placeholder}
@@ -110,7 +110,7 @@ const StageComponent = ({ columnId, items, columnName, handleAddBox, showInputID
                 </Box>
                 <AddIssueButton
                     columnId={columnId}
-                    handleAddBox={handleAddBox}
+                    handleAddIssue={handleAddIssue}
                     showInputID={showInputID}
                     setShowInputID={setShowInputID}
                 />

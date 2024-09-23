@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Typography, styled, Box, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { Typography, styled, Box } from '@mui/material';
 import { Draggable } from '@hello-pangea/dnd';
 import GetPriorityAssests from '../../general/PriorityAssets';
 import IssueDialog from '../IssueDialog/IssueDialog';

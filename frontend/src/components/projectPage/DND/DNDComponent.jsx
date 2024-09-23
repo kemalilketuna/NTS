@@ -4,30 +4,16 @@ import { Box } from '@mui/material';
 import apiClient from '../../../api/apiClient';
 import { useParams } from 'react-router-dom';
 import StageComponent from './StageComponent';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { selectColumns, setColumns, setIssue, addIssue, changeIssueStage } from '../../../redux/projectSlice';
 
 const DragAndDropComponent = () => {
+    const [showInputID, setShowInputID] = useState(''); // for Add Issue Button
+
     const { projectId } = useParams();
-    const [columns, setColumns] = useState({});
-    const [columnNames, setColumnNames] = useState({});
-    const [showInputID, setShowInputID] = useState('');
+    const dispatch = useDispatch();
+    const columns = useSelector(selectColumns);
 
-    useEffect(() => {
-        const fetchIssues = async () => {
-            const response = await apiClient.getProjectDetail(projectId);
-            const newColumns = {};
-            const newColumnNames = {};
-
-            response.stages.forEach((column) => {
-                newColumns[column.id] = column.issues;
-                newColumnNames[column.id] = column.name;
-            });
-
-            setColumns(newColumns);
-            setColumnNames(newColumnNames);
-        };
-        fetchIssues();
-    }, [projectId]);
 
     const onDragEnd = (result) => {
         const { source, destination } = result;
@@ -35,47 +21,41 @@ const DragAndDropComponent = () => {
             return;
         }
 
-        setColumns((prevColumns) => {
-            const newColumns = { ...prevColumns };
-            const sourceColumn = [...newColumns[source.droppableId]];
-            const destColumn = [...newColumns[destination.droppableId]];
-            const [removed] = sourceColumn.splice(source.index, 1);
-            destColumn.splice(destination.index, 0, removed);
-
-            newColumns[source.droppableId] = sourceColumn;
-            newColumns[destination.droppableId] = destColumn;
-
-            apiClient.updateIssueStage(removed.id, destination.droppableId);
-            return newColumns;
-        });
+        dispatch(changeIssueStage({
+            issueId: result.draggableId,
+            sourceId: source.droppableId,
+            destinationId: destination.droppableId
+        }));
+        apiClient.updateIssue(result.draggableId, { stage: destination.droppableId });
     };
 
-    const handleAddBox = async (columnId, newBoxContent) => {
+    const handleAddIssue = async (columnId, newBoxContent) => {
         if (!newBoxContent.trim()) return;
 
         try {
             const response = await apiClient.createIssue(newBoxContent, projectId, columnId);
             const newBox = { id: String(response.id), title: newBoxContent };
 
-            setColumns((prevColumns) => ({
+            dispatch(setColumns((prevColumns) => ({
                 ...prevColumns,
                 [columnId]: [...prevColumns[columnId], newBox],
-            }));
+            })));
         } catch (error) {
             console.error('Error creating issue:', error);
         }
     };
 
+
     return (
         <DragDropContext onDragEnd={onDragEnd}>
             <Box sx={{ display: 'flex', gap: '3vw' }}>
-                {Object.entries(columns).map(([columnId, items]) => (
+                {columns.length > 0 && columns.map((stage) => (
                     <StageComponent
-                        key={columnId}
-                        columnId={columnId}
-                        items={items}
-                        columnName={columnNames[columnId]}
-                        handleAddBox={handleAddBox}
+                        key={stage.id}
+                        columnId={stage.id}
+                        items={stage.issues}
+                        columnName={stage.name}
+                        handleAddIssue={handleAddIssue}
                         showInputID={showInputID}
                         setShowInputID={setShowInputID}
                     />

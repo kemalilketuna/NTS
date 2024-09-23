@@ -54,7 +54,7 @@ const styles = {
     }
 };
 
-const AddIssueButton = ({ columnId, handleAddBox, showInputID, setShowInputID }) => {
+const AddIssueButton = ({ columnId, handleAddIssue, showInputID, setShowInputID }) => {
     const [newBoxContent, setNewBoxContent] = useState('');
     const inputRef = useRef(null);
     const theme = useTheme();
@@ -74,7 +74,7 @@ const AddIssueButton = ({ columnId, handleAddBox, showInputID, setShowInputID })
     };
 
     const handleCreate = () => {
-        handleAddBox(columnId, newBoxContent);
+        handleAddIssue(columnId, newBoxContent);
         setShowInputID('');
         setNewBoxContent('');
     };

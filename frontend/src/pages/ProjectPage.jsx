@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
 import HeaderComponent from '../components/general/header/HeaderComponent';
 import LeftPanel from '../components/projectPage/LeftPanel/LeftPanel';
@@ -7,11 +7,21 @@ import { useAuthRedirect } from '../hooks/useAuthRedirect';
 import { useSelector } from 'react-redux';
 import { selectIsPanelOpen } from '../redux/panelSlice';
 import DragAndDropComponent from '../components/projectPage/DND/DNDComponent';
+import { useDispatch } from 'react-redux';
+import { fetchProjectDetail } from '../redux/projectSlice';
+import { useParams } from 'react-router-dom';
 
 function ProjectPage() {
     useAuthRedirect();
 
     const isPanelOpen = useSelector(selectIsPanelOpen);
+    const dispatch = useDispatch();
+    const { projectId } = useParams();
+
+    useEffect(() => {
+        console.log('fetching project detail');
+        dispatch(fetchProjectDetail(projectId));
+    }, [dispatch]);
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
