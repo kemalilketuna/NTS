@@ -15,6 +15,7 @@ class IssueSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "stage",
+            "description",
             "created_by",
             "assigned_to",
             "project",
@@ -79,8 +80,22 @@ class IssueDetailSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
     created_by = UserSerializer(read_only=True)
     assigned_to = UserSerializer(read_only=True, many=True)
+    description = serializers.CharField(required=False)
 
     class Meta:
         model = Issue
-        fields = "__all__"
+        fields = [
+            "id",
+            "title",
+            "stage",
+            "description",
+            "created_by",
+            "assigned_to",
+            "attachments",
+            "comments",
+            "project",
+            "priority",
+            "updated_at",
+            "created_at",
+        ]
         read_only_fields = ["created_by", "updated_at", "created_at"]

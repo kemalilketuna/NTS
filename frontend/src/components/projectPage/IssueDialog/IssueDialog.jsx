@@ -6,21 +6,27 @@ import IssueDialogContent from './IssueDialogContent';
 
 function IssueDialog({ open, handleClose, item }) {
     const [issueDetail, setIssueDetail] = useState(null);
+    const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
         if (open) {
             const fetchIssueDetail = async () => {
                 try {
-                    const response = await apiClient.getIssueDetail(item.id);
-                    setIssueDetail(response.data);
+                    const data = await apiClient.getIssueDetail(item.id);
+                    setIssueDetail(data);
+                    setLoading(false);
                 } catch (error) {
                     console.error('Error fetching issue detail:', error);
                 }
             };
             fetchIssueDetail();
         }
-    }, [open, item.id]);
+    }, [open, item]);
 
+    if (loading) {
+        return <></>
+    }
     return (
         <Dialog
             open={open}
@@ -31,7 +37,12 @@ function IssueDialog({ open, handleClose, item }) {
             }}
             fullWidth
             PaperProps={{
-                sx: { height: '85vh', maxWidth: '85vw', borderRadius: '5px', border: '1px solid', borderColor: 'border.secondary' }
+                sx: {
+                    height: '85vh', maxWidth: '85vw', borderRadius: '5px', border: '1px solid', borderColor: 'border.secondary',
+                    '& .MuiDialogContent-root': {
+                        backgroundColor: 'background.default'
+                    }
+                }
             }}
         >
             <IconButton
@@ -48,7 +59,7 @@ function IssueDialog({ open, handleClose, item }) {
             </IconButton>
 
             <DialogContent>
-                <IssueDialogContent issueDetail={issueDetail} />
+                <IssueDialogContent issueDetail={issueDetail} setIssueDetail={setIssueDetail} />
             </DialogContent>
         </Dialog>
     )

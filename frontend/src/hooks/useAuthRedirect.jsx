@@ -11,7 +11,9 @@ export function useAuthRedirect() {
             const navigated = window.location.pathname !== '/';
 
             if (user && !navigated) {
-                navigate('/projects');
+                setTimeout(() => {
+                    navigate('/projects');
+                }, 300);
             } else if (!user && navigated) {
                 navigate('/');
             }

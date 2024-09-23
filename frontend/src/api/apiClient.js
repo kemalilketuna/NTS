@@ -186,6 +186,11 @@ class ApiClient {
         const { data } = await this.apiClient.get(`${endpoints.issue.detail}${issueId}/`);
         return data;
     }
+
+    async updateIssue(issueId, payload) {
+        const { data } = await this.apiClient.patch(`${endpoints.issue.update}${issueId}/`, payload);
+        return data;
+    }
 }
 
 const baseURL = endpoints.baseUrl;

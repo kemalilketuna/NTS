@@ -29,7 +29,8 @@ const styles = {
     },
     returnIcon: {
         backgroundColor: 'rgba(255, 255, 255, 0.3)',
-        borderRadius: '3px'
+        borderRadius: '3px',
+        transition: 'background-color 0.3s ease',
     },
     addButton: (highlightedColor) => ({
         padding: 1.2,

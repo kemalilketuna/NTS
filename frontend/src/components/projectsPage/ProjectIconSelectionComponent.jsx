@@ -42,7 +42,8 @@ const ProjectIconSelectionComponent = ({ icon, handleFileChange, handleRemoveFil
                         width: '100%',
                         height: '100%',
                         cursor: 'pointer',
-                        backgroundColor: iconUrl ? 'transparent' : 'rgba(170, 170, 170, 1)'
+                        backgroundColor: iconUrl ? 'transparent' : 'rgba(170, 170, 170, 1)',
+                        transition: 'background-color 0.3s ease',
                     }}
                     src={iconUrl}
                 >
