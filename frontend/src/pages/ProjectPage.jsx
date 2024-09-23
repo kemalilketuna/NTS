@@ -19,9 +19,8 @@ function ProjectPage() {
     const { projectId } = useParams();
 
     useEffect(() => {
-        console.log('fetching project detail');
         dispatch(fetchProjectDetail(projectId));
-    }, [dispatch]);
+    }, [dispatch, projectId]);
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>

@@ -5,7 +5,7 @@ import apiClient from '../../../api/apiClient';
 import { useParams } from 'react-router-dom';
 import StageComponent from './StageComponent';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectColumns, setColumns, setIssue, addIssue, changeIssueStage } from '../../../redux/projectSlice';
+import { selectColumns, addIssue, changeIssueStage } from '../../../redux/projectSlice';
 
 const DragAndDropComponent = () => {
     const [showInputID, setShowInputID] = useState(''); // for Add Issue Button
@@ -34,12 +34,8 @@ const DragAndDropComponent = () => {
 
         try {
             const response = await apiClient.createIssue(newBoxContent, projectId, columnId);
-            const newBox = { id: String(response.id), title: newBoxContent };
-
-            dispatch(setColumns((prevColumns) => ({
-                ...prevColumns,
-                [columnId]: [...prevColumns[columnId], newBox],
-            })));
+            const newBox = { id: String(response.id), title: newBoxContent, stageId: columnId };
+            dispatch(addIssue(newBox));
         } catch (error) {
             console.error('Error creating issue:', error);
         }

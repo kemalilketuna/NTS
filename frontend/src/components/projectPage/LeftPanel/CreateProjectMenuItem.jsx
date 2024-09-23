@@ -61,6 +61,7 @@ function CreateProjectMenuItem() {
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
                                     handleCreate();
+                                    inputRef.current.blur();
                                 }
                             }}
                             sx={{

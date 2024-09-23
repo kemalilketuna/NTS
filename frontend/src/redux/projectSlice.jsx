@@ -54,6 +54,14 @@ const projectSlice = createSlice({
             const stage = state.projectDetail.stages.find(stage => stage.id === issue.stageId);
             stage.issues.push(issue);
         },
+        removeIssue: (state, action) => {
+            const issue = action.payload;
+            const stage = state.projectDetail.stages.find(stage => stage.id === issue.stageId);
+            const issueIndex = stage.issues.findIndex(i => i.id === issue.id);
+            if (issueIndex !== -1) {
+                stage.issues.splice(issueIndex, 1);
+            }
+        },
     },
     extraReducers: (builder) => {
         builder
