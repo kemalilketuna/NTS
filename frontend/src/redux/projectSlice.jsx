@@ -31,9 +31,9 @@ const projectSlice = createSlice({
         setColumns: (state, action) => {
             state.projectDetail.stages = action.payload;
         },
-        setIssue: (state, action) => {
+        updateIssue: (state, action) => {
             const issue = action.payload;
-            const stage = state.projectDetail.stages.find(stage => stage.id === issue.stageId);
+            const stage = state.projectDetail.stages.find(stage => stage.id === issue.stage);
             const issueIndex = stage.issues.findIndex(i => i.id === issue.id);
             if (issueIndex !== -1) {
                 stage.issues[issueIndex] = issue;
@@ -82,5 +82,5 @@ const projectSlice = createSlice({
 export const selectProject = (state) => state.project.projectDetail;
 export const selectColumns = (state) => state.project.projectDetail.stages;
 export const selectIssue = (state) => state.project.projectDetail.stages.issues;
-export const { setProjectDetail, setLoading, setError, setColumns, setIssue, addIssue, changeIssueStage } = projectSlice.actions;
+export const { setProjectDetail, setColumns, updateIssue, addIssue, changeIssueStage } = projectSlice.actions;
 export default projectSlice.reducer;
