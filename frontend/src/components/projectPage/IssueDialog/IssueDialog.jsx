@@ -8,7 +8,6 @@ function IssueDialog({ open, handleClose, item }) {
     const [issueDetail, setIssueDetail] = useState(null);
     const [loading, setLoading] = useState(true);
 
-
     useEffect(() => {
         if (open) {
             const fetchIssueDetail = async () => {
@@ -22,7 +21,7 @@ function IssueDialog({ open, handleClose, item }) {
             };
             fetchIssueDetail();
         }
-    }, [open, item]);
+    }, [open]);
 
     if (loading) {
         return <></>
