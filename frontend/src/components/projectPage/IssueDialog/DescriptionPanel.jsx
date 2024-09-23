@@ -2,17 +2,21 @@ import React, { useState } from 'react';
 import { Box, Typography, Button, useTheme, Divider } from '@mui/material';
 import MDEditor from '@uiw/react-md-editor';
 import apiClient from '../../../api/apiClient';
+import { updateIssue } from '../../../redux/projectSlice';
+import { useDispatch } from 'react-redux';
 
 const DescriptionPanel = ({ issueDetail, setIssueDetail }) => {
     const theme = useTheme();
     const [isEditorOpen, setEditorOpen] = useState(false);
     const [description, setDescription] = useState(issueDetail.description ?? '');
-
+    const dispatch = useDispatch();
     const handleSave = async () => {
         try {
-            const updatedIssue = await apiClient.updateIssue(issueDetail.id, { description: description });
+            apiClient.updateIssue(issueDetail.id, { description: description });
+            const updatedIssue = { ...issueDetail, description: description };
             setEditorOpen(false);
             setIssueDetail(updatedIssue);
+            dispatch(updateIssue(updatedIssue));
         } catch (error) {
             console.error('Error updating issue description:', error);
         }
