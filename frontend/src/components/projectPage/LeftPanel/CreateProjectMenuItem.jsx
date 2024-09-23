@@ -11,6 +11,7 @@ function CreateProjectMenuItem() {
     const [isCreating, setIsCreating] = useState(false);
     const [newProjectName, setNewProjectName] = useState('');
     const inputRef = useRef(null);
+    const containerRef = useRef(null); // Ref for the component container
 
     const handleCreate = async () => {
         setIsCreating(false);
@@ -26,6 +27,11 @@ function CreateProjectMenuItem() {
         }
     };
 
+    const handleCancel = () => {
+        setIsCreating(false);
+        setNewProjectName('');
+        inputRef.current.blur();
+    };
 
     useEffect(() => {
         if (isCreating && inputRef.current) {
@@ -33,8 +39,26 @@ function CreateProjectMenuItem() {
         }
     }, [isCreating]);
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (containerRef.current && !containerRef.current.contains(event.target)) {
+                handleCancel();
+            }
+        };
+
+        if (isCreating) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isCreating]);
+
     return (
-        <MenuItem onClick={() => {
+        <MenuItem ref={containerRef} onClick={() => {
             if (!isCreating) {
                 setIsCreating(true);
             }
