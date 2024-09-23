@@ -49,7 +49,7 @@ class AttachmentFileCreateView(generics.CreateAPIView):
     serializer_class = AttachmentFileSerializer
 
 
-class AttachmentFileDeleteView(generics.DestroyAPIView):
+class AttachmentFileRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = AttachmentFileSerializer
 

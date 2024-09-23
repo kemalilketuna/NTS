@@ -14,8 +14,8 @@ issue_patterns = [
 attachment_patterns = [
     path("create/", AttachmentFileCreateView.as_view(), name="attachment-file-create"),
     path(
-        "<uuid:pk>/delete/",
-        AttachmentFileDeleteView.as_view(),
-        name="attachment-file-delete",
+        "<uuid:pk>/",
+        AttachmentFileRetrieveUpdateDestroyAPIView.as_view(),
+        name="attachment-file-retrieve-update-destroy",
     ),
 ]

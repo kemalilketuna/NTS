@@ -21,6 +21,10 @@ const endpoints = {
         update: '/issue/',
         detail: '/issue/detail/',
     },
+    attachment: {
+        create: '/attachment/create/',
+        delete: '/attachment/',
+    },
 }
 
 export default endpoints;

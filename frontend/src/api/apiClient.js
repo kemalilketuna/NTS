@@ -191,6 +191,16 @@ class ApiClient {
         const { data } = await this.apiClient.patch(`${endpoints.issue.update}${issueId}/`, payload);
         return data;
     }
+
+    async createAttachment(payload) {
+        const { data } = await this.apiClient.post(`${endpoints.attachment.create}`, payload);
+        return data;
+    }
+
+    async deleteAttachment(attachmentId) {
+        const { data } = await this.apiClient.delete(`${endpoints.attachment.delete}${attachmentId}/`);
+        return data;
+    }
 }
 
 const baseURL = endpoints.baseUrl;
