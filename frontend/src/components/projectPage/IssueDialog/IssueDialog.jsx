@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Dialog, DialogTitle, DialogContent, Grow, IconButton } from '@mui/material';
+import { Dialog, DialogContent, Grow, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import apiClient from '../../../api/apiClient';
 import IssueDialogContent from './IssueDialogContent';
@@ -22,6 +22,10 @@ function IssueDialog({ open, handleClose, item }) {
             fetchIssueDetail();
         }
     }, [open]);
+
+    useEffect(() => {
+
+    }, [issueDetail]);
 
     if (loading) {
         return <></>
