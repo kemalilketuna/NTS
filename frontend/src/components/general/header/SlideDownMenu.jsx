@@ -103,7 +103,7 @@ function SlideDownMenu() {
                     </Typography>
                 </MenuItem>
                 <MenuItem onClick={handleSignOut}>
-                    <Typography color='error.main' fontWeight={600} letterSpacing={0.5} fontSize={17} marginLeft={1} sx={{ opacity: '0.8' }} >
+                    <Typography color='secondary.main' fontWeight={600} letterSpacing={0.5} fontSize={17} marginLeft={1} sx={{ opacity: '0.8' }} >
                         Sign Out
                     </Typography>
                 </MenuItem>
