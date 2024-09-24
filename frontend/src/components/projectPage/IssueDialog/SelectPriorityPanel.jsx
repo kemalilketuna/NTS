@@ -15,17 +15,36 @@ function SelectPriorityPanel({ issueDetail, setIssueDetail }) {
         apiClient.updateIssuePriority(issueDetail.id, event.target.value)
     }
 
+
     return (
         <Box>
-            <Typography variant="h6" mb={2} >Priority</Typography>
+            <Typography variant="h6" mb={1} >Priority</Typography>
             <Select
                 value={issueDetail.priority}
                 onChange={handleChange}
-                sx={{ width: '100%', borderRadius: '4px' }}
+                sx={{
+                    width: '100%', borderRadius: '4px', height: '40px',
+                    '& .MuiOutlinedInput-notchedOutline': {
+                        border: 'none',
+                    },
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                        border: 'none',
+                    },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        border: 'none',
+                    },
+                    '& .MuiSelect-icon': {
+                        display: 'none',
+                    },
+                    '&:hover': {
+                        backgroundColor: 'background.paper',
+                    },
+                }}
                 MenuProps={{
                     PaperProps: {
                         sx: {
                             borderRadius: '4px',
+
                         },
                     },
                 }}
@@ -84,7 +103,7 @@ function SelectPriorityPanel({ issueDetail, setIssueDetail }) {
                     </Box>
                 </MenuItem>
             </Select>
-            <Divider sx={{ mb: 2, mt: 4, borderColor: 'border.main' }} />
+            <Divider sx={{ mb: 2, mt: 3, borderColor: 'border.main' }} />
         </Box>
     )
 }
