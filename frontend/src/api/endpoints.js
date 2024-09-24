@@ -23,6 +23,7 @@ const endpoints = {
     },
     attachment: {
         create: '/attachment/create/',
+        download: '/attachment/',
         delete: '/attachment/',
     },
 }

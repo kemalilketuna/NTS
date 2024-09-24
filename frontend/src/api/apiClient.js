@@ -203,6 +203,11 @@ class ApiClient {
         const { data } = await this.apiClient.delete(`${endpoints.attachment.delete}${attachmentId}/`);
         return data;
     }
+
+    async downloadAttachment(attachmentId) {
+        const { data } = await this.apiClient.get(`${endpoints.attachment.download}${attachmentId}/`, { responseType: 'blob' });
+        return data;
+    }
 }
 
 const baseURL = endpoints.baseUrl;

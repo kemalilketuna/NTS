@@ -5,6 +5,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import DescriptionIcon from '@mui/icons-material/Description';
 import apiClient from '../../../api/apiClient';
+import DownloadIcon from '@mui/icons-material/Download';
+import axios from 'axios'; // Assuming Axios is imported elsewhere in the project
 
 const AttachmentsPanel = ({ issueDetail, setIssueDetail }) => {
     const fileInputRef = useRef(null);
@@ -34,6 +36,22 @@ const AttachmentsPanel = ({ issueDetail, setIssueDetail }) => {
             ...prevDetail,
             attachments: [...(prevDetail.attachments || []), ...responses]
         }));
+    };
+
+    const handleDownloadAttachment = async (file) => {
+        try {
+            const response = await apiClient.downloadAttachment(file.id);
+            const url = URL.createObjectURL(new Blob([response.data]));
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = file.name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error('Error downloading file:', error);
+        }
     };
 
     const handleDeleteAttachment = (index) => {
@@ -107,16 +125,50 @@ const AttachmentsPanel = ({ issueDetail, setIssueDetail }) => {
                             overflow: 'hidden',
                             position: 'relative',
                             flexShrink: 0, // Prevent shrinking
+                            '&:hover': {
+                                // Show delete icon on hover
+                                '& .show-icons': {
+                                    display: 'block',
+                                },
+                            },
                         }}
                     >
                         {renderFilePreview(file)}
                         <IconButton
+                            className="show-icons"
+                            size="small"
+                            sx={{
+                                position: 'absolute',
+                                top: 0,
+                                right: 40,
+                                height: 30,
+                                width: 30,
+                                backgroundColor: 'background.paper',
+                                borderRadius: '6px',
+                                display: 'none',
+                                '&:hover': {
+                                    backgroundColor: 'background.dark',
+                                },
+                            }}
+                            onClick={() => handleDownloadAttachment(file)}
+                        >
+                            <DownloadIcon fontSize="small" />
+                        </IconButton>
+                        <IconButton
+                            className="show-icons"
                             size="small"
                             sx={{
                                 position: 'absolute',
                                 top: 0,
                                 right: 0,
-                                backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                                height: 30,
+                                width: 30,
+                                backgroundColor: 'background.paper',
+                                borderRadius: '6px',
+                                display: 'none',
+                                '&:hover': {
+                                    backgroundColor: 'background.dark',
+                                },
                             }}
                             onClick={() => handleDeleteAttachment(issueDetail.attachments.length - 1 - index)} // Adjusted index for deletion
                         >
