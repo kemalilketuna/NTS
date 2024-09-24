@@ -23,6 +23,10 @@ function TitlePanel({ issueDetail, setIssueDetail }) {
             setIsEditing(false);
             return;
         }
+        if (newTitle === issueDetail.title) {
+            setIsEditing(false);
+            return;
+        }
         apiClient.updateIssue(issueDetail.id, { title: newTitle });
         const updatedIssue = { ...issueDetail, title: newTitle };
         setIssueDetail(updatedIssue);
@@ -85,9 +89,9 @@ function TitlePanel({ issueDetail, setIssueDetail }) {
                     <Box sx={{
                         display: 'flex',
                         position: 'absolute',
-                        bottom: '-2.5rem',
+                        bottom: '-2.7rem',
                         right: 0,
-                        gap: '0.5rem'
+                        gap: '0.5rem',
                     }}>
                         <IconButton
                             onClick={handleSubmit}
@@ -95,7 +99,10 @@ function TitlePanel({ issueDetail, setIssueDetail }) {
                                 color: 'primary.main',
                                 backgroundColor: 'background.paper',
                                 borderRadius: 1,
-                                padding: '8px'
+                                padding: '8px',
+                                '&:hover': {
+                                    backgroundColor: 'background.default',
+                                }
                             }}
                         >
                             <CheckIcon />
@@ -106,7 +113,10 @@ function TitlePanel({ issueDetail, setIssueDetail }) {
                                 color: 'primary.main',
                                 backgroundColor: 'background.paper',
                                 borderRadius: 1,
-                                padding: '8px'
+                                padding: '8px',
+                                '&:hover': {
+                                    backgroundColor: 'background.default',
+                                }
                             }}
                         >
                             <CloseIcon />
