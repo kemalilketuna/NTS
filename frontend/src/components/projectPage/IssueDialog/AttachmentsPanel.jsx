@@ -4,26 +4,42 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import DescriptionIcon from '@mui/icons-material/Description';
+import apiClient from '../../../api/apiClient';
 
 const AttachmentsPanel = ({ issueDetail, setIssueDetail }) => {
     const fileInputRef = useRef(null);
 
-    const handleFileUpload = (event) => {
+    const handleFileUpload = async (event) => {
         const files = Array.from(event.target.files);
         const newAttachments = files.map(file => ({
             name: file.name,
             type: file.type,
             size: file.size,
-            url: URL.createObjectURL(file)
+            file: file
         }));
+
+        const responses = await Promise.all(newAttachments.map(async (attachment) => {
+            const formData = new FormData();
+            formData.append('file', attachment.file);
+            formData.append('name', attachment.name);
+            formData.append('type', attachment.type);
+            formData.append('size', attachment.size);
+            formData.append('issue', issueDetail.id);
+            formData.append('project', issueDetail.project);
+            const response = await apiClient.createAttachment(formData);
+            return response;
+        }))
 
         setIssueDetail(prevDetail => ({
             ...prevDetail,
-            attachments: [...(prevDetail.attachments || []), ...newAttachments]
+            attachments: [...(prevDetail.attachments || []), ...responses]
         }));
     };
 
     const handleDeleteAttachment = (index) => {
+        const attachment = issueDetail.attachments[index];
+        apiClient.deleteAttachment(attachment.id);
+
         setIssueDetail(prevDetail => ({
             ...prevDetail,
             attachments: prevDetail.attachments.filter((_, i) => i !== index)
@@ -32,7 +48,8 @@ const AttachmentsPanel = ({ issueDetail, setIssueDetail }) => {
 
     const renderFilePreview = (file) => {
         if (file.type.startsWith('image/')) {
-            return <img src={file.url} alt={file.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
+            console.log(file.file);
+            return <img src={file.file} alt={file.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
         } else if (file.type === 'application/pdf') {
             return (
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
@@ -63,38 +80,7 @@ const AttachmentsPanel = ({ issueDetail, setIssueDetail }) => {
     return (
         <Box>
             <Typography variant="h6" pl={1} mb={1}>Attachments</Typography>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
-                {issueDetail && issueDetail.attachments && issueDetail.attachments.map((file, index) => (
-                    <Box
-                        key={index}
-                        sx={{
-                            width: 120,
-                            height: 120,
-                            border: '1px solid #ccc',
-                            borderRadius: 1,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            overflow: 'hidden',
-                            position: 'relative',
-                        }}
-                    >
-                        {renderFilePreview(file)}
-                        <IconButton
-                            size="small"
-                            sx={{
-                                position: 'absolute',
-                                top: 0,
-                                right: 0,
-                                backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                            }}
-                            onClick={() => handleDeleteAttachment(index)}
-                        >
-                            <DeleteIcon fontSize="small" />
-                        </IconButton>
-                    </Box>
-                ))}
+            <Box sx={{ display: 'flex', overflowX: 'auto', scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' }, gap: 2, width: '100%', whiteSpace: 'nowrap' }}>
                 <IconButton
                     sx={{
                         width: 120,
@@ -106,6 +92,39 @@ const AttachmentsPanel = ({ issueDetail, setIssueDetail }) => {
                 >
                     <AddIcon />
                 </IconButton>
+                {issueDetail && issueDetail.attachments && issueDetail.attachments.slice().reverse().map((file, index) => (
+                    <Box
+                        key={issueDetail.attachments.length - 1 - index} // Adjusted key for correct mapping
+                        sx={{
+                            width: 120,
+                            height: 120,
+                            border: '1px solid #ccc',
+                            borderRadius: 1,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            overflow: 'hidden',
+                            position: 'relative',
+                            flexShrink: 0, // Prevent shrinking
+                        }}
+                    >
+                        {renderFilePreview(file)}
+                        <IconButton
+                            size="small"
+                            sx={{
+                                position: 'absolute',
+                                top: 0,
+                                right: 0,
+                                backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                            }}
+                            onClick={() => handleDeleteAttachment(issueDetail.attachments.length - 1 - index)} // Adjusted index for deletion
+                        >
+                            <DeleteIcon fontSize="small" />
+                        </IconButton>
+                    </Box>
+                ))}
+
                 <input
                     type="file"
                     multiple

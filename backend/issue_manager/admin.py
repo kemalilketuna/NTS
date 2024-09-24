@@ -10,6 +10,7 @@ class ClomunAdmin(admin.ModelAdmin):
 
 class AttachmentFileInline(admin.StackedInline):
     model = AttachmentFile
+    fields = ("file", "name", "created_by")
     extra = 1
 
 

@@ -1,13 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Box, Typography, IconButton, TextField, Button } from '@mui/material'
-import { FaEdit } from "react-icons/fa";
-import { useTheme } from '@mui/material';
+import { Box, Typography, IconButton, TextField } from '@mui/material'
 import apiClient from '../../../api/apiClient';
 import { useDispatch } from 'react-redux';
 import { updateIssue } from '../../../redux/projectSlice';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 
 function TitlePanel({ issueDetail, setIssueDetail }) {
-    const theme = useTheme();
     const dispatch = useDispatch();
     const [isEditing, setIsEditing] = useState(false);
     const [newTitle, setNewTitle] = useState(issueDetail.title);
@@ -31,9 +30,14 @@ function TitlePanel({ issueDetail, setIssueDetail }) {
         setIsEditing(false);
     };
 
+    const handleCancel = () => {
+        setIsEditing(false);
+        setNewTitle(issueDetail.title);
+    };
+
     const handleClickOutside = (event) => {
         if (buttonRef.current && !buttonRef.current.contains(event.target)) {
-            setIsEditing(false);
+            handleCancel();
         }
     };
 
@@ -51,17 +55,25 @@ function TitlePanel({ issueDetail, setIssueDetail }) {
     }, [isEditing]);
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center', height: '10vh' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center', height: '10vh', width: '100%' }}>
             {isEditing ? (
-                <Box ref={buttonRef}>
+                <Box ref={buttonRef} sx={{ width: '100%', position: 'relative' }}>
                     <TextField
                         value={newTitle}
-                        label="Rename"
                         onChange={(e) => setNewTitle(e.target.value)}
                         variant="outlined"
                         size="small"
+                        autoFocus
                         sx={{
                             mr: 1,
+                            width: '100%',
+                            '& .MuiInputBase-root': {
+                                borderRadius: '5px',
+                                fontSize: '2rem',
+                                backgroundColor: 'background.paper',
+                                height: '3.2rem',
+                                paddingLeft: '-10px',
+                            },
                         }}
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') {
@@ -70,22 +82,41 @@ function TitlePanel({ issueDetail, setIssueDetail }) {
                         }}
                         inputRef={textFieldRef} // Add ref to TextField
                     />
-                    <Button onClick={handleSubmit} sx={{ fontWeight: 'bold' }}> Save</Button>
+                    <Box sx={{
+                        display: 'flex',
+                        position: 'absolute',
+                        bottom: '-2.5rem',
+                        right: 0,
+                        gap: '0.5rem'
+                    }}>
+                        <IconButton
+                            onClick={handleSubmit}
+                            sx={{
+                                color: 'primary.main',
+                                backgroundColor: 'background.paper',
+                                borderRadius: 1,
+                                padding: '8px'
+                            }}
+                        >
+                            <CheckIcon />
+                        </IconButton>
+                        <IconButton
+                            onClick={handleCancel}
+                            sx={{
+                                color: 'primary.main',
+                                backgroundColor: 'background.paper',
+                                borderRadius: 1,
+                                padding: '8px'
+                            }}
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                    </Box>
                 </Box>
             ) : (
-                <>
-                    <Typography variant="h4" sx={{ ml: 1, mr: 1.5 }}> {issueDetail.title}</Typography>
-                    <IconButton
-                        onClick={handleEditClick}
-                        sx={{
-                            '&:hover': {
-                                backgroundColor: 'transparent',
-                            },
-                        }}
-                    >
-                        <FaEdit color={theme.palette.primary.main} />
-                    </IconButton>
-                </>
+                <Box onClick={handleEditClick} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center', height: '10vh', cursor: 'text', width: '100%' }}>
+                    <Typography variant="h4" sx={{ ml: 1.7, mr: 1.5, fontSize: '2rem' }}> {issueDetail.title}</Typography>
+                </Box>
             )}
         </Box >
     )

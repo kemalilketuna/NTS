@@ -61,9 +61,28 @@ class StageSerializer(serializers.ModelSerializer):
 
 
 class AttachmentFileSerializer(serializers.ModelSerializer):
+    issue = serializers.UUIDField()
+    project = serializers.UUIDField()
+
     class Meta:
         model = AttachmentFile
         fields = "__all__"
+
+    def create(self, validated_data):
+        user = self.context["request"].user
+        project = Project.objects.get(id=validated_data.pop("project"))
+
+        if not user.has_perm("project_manager.edit_project", project):
+            raise PermissionDenied(
+                "You don't have permission to create attachments in this project."
+            )
+
+        return AttachmentFile.objects.create(
+            issue_id=validated_data.pop("issue"),
+            project=project,
+            created_by=user,
+            **validated_data
+        )
 
 
 class CommentSerializer(serializers.ModelSerializer):

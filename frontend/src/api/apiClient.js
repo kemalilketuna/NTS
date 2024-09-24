@@ -192,8 +192,10 @@ class ApiClient {
         return data;
     }
 
-    async createAttachment(payload) {
-        const { data } = await this.apiClient.post(`${endpoints.attachment.create}`, payload);
+    async createAttachment(attachment) {
+        const { data } = await this.apiClient.post(`${endpoints.attachment.create}`, attachment, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        });
         return data;
     }
 

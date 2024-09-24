@@ -50,8 +50,8 @@ class AttachmentFileCreateView(generics.CreateAPIView):
 
 
 class AttachmentFileRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsProjectMember]
     serializer_class = AttachmentFileSerializer
 
     def get_queryset(self):
-        return AttachmentFile.objects.filter(issue_id=self.kwargs["pk"])
+        return AttachmentFile.objects.filter(id=self.kwargs["pk"])
