@@ -182,6 +182,14 @@ class ApiClient {
         return data;
     }
 
+    async updateIssuePriority(issueId, priority) {
+        const payload = {
+            priority: priority,
+        };
+        const { data } = await this.apiClient.patch(`${endpoints.issue.update}${issueId}/`, payload);
+        return data;
+    }
+
     async getIssueDetail(issueId) {
         const { data } = await this.apiClient.get(`${endpoints.issue.detail}${issueId}/`);
         return data;

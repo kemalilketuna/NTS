@@ -1,8 +1,10 @@
 import React from 'react'; // Add useState import
-import { Box, Typography, Divider } from '@mui/material'
+import { Box, Divider } from '@mui/material'
 import DescriptionPanel from './DescriptionPanel'
 import AttachmentsPanel from './AttachmentsPanel'
 import TitlePanel from './TitlePanel'
+import CreatedByPanel from './CreatedByPanel'
+import SelectPriorityPanel from './SelectPriorityPanel'
 
 const LeftPanel = ({ issueDetail, setIssueDetail }) => {
     return (
@@ -17,10 +19,9 @@ const LeftPanel = ({ issueDetail, setIssueDetail }) => {
 
 const RightPanel = ({ issueDetail, setIssueDetail }) => {
     return (
-        <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <Typography>
-                {issueDetail.description}
-            </Typography>
+        <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'start', gap: 1 }}>
+            <CreatedByPanel issueDetail={issueDetail} setIssueDetail={setIssueDetail} />
+            <SelectPriorityPanel issueDetail={issueDetail} setIssueDetail={setIssueDetail} />
         </Box>
     )
 }
