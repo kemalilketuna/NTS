@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Box, Typography, IconButton } from '@mui/material';
+import { Box, Typography, IconButton, Divider } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
@@ -198,6 +198,7 @@ const AttachmentsPanel = ({ issueDetail, setIssueDetail }) => {
                 title="Delete this attachment?"
                 content="Once you delete, it's gone for good."
             />
+            <Divider sx={{ mt: 4, mb: 2 }} />
         </Box>
     );
 };

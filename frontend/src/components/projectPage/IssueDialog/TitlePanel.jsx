@@ -77,6 +77,7 @@ function TitlePanel({ issueDetail, setIssueDetail }) {
                                 backgroundColor: 'background.paper',
                                 height: '3.2rem',
                                 paddingLeft: '-10px',
+                                color: 'primary.main',
                             },
                         }}
                         onKeyDown={(e) => {
@@ -125,7 +126,7 @@ function TitlePanel({ issueDetail, setIssueDetail }) {
                 </Box>
             ) : (
                 <Box onClick={handleEditClick} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'start', alignItems: 'center', height: '10vh', cursor: 'text', width: '100%' }}>
-                    <Typography variant="h4" sx={{ ml: 1.7, mr: 1.5, fontSize: '2rem' }}> {issueDetail.title}</Typography>
+                    <Typography variant="h4" sx={{ ml: 1.7, mr: 1.5, fontSize: '2rem', color: 'primary.main' }}> {issueDetail.title}</Typography>
                 </Box>
             )}
         </Box >

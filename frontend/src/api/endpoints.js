@@ -26,6 +26,10 @@ const endpoints = {
         download: '/attachment/',
         delete: '/attachment/',
     },
+    comment: {
+        create: '/comment/create/',
+        update: '/comment/',
+    },
 }
 
 export default endpoints;

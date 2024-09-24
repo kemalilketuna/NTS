@@ -1,19 +1,21 @@
-import React from 'react'; // Add useState import
-import { Box, Divider } from '@mui/material'
-import DescriptionPanel from './DescriptionPanel'
-import AttachmentsPanel from './AttachmentsPanel'
-import TitlePanel from './TitlePanel'
-import CreatedByPanel from './CreatedByPanel'
-import SelectPriorityPanel from './SelectPriorityPanel'
-import DeleteIssuePanel from './DeleteIssuePanel'
+import React from 'react';
+import { Box, Divider } from '@mui/material';
+import DescriptionPanel from './DescriptionPanel';
+import AttachmentsPanel from './AttachmentsPanel';
+import TitlePanel from './TitlePanel';
+import CreatedByPanel from './CreatedByPanel';
+import SelectPriorityPanel from './SelectPriorityPanel';
+import DeleteIssuePanel from './DeleteIssuePanel';
+import CommentsDialog from './CommentsDialog';
 
 const LeftPanel = ({ issueDetail, setIssueDetail }) => {
     return (
-        <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'start' }}>
+        <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'start', overflowY: 'auto' }}>
             <TitlePanel issueDetail={issueDetail} setIssueDetail={setIssueDetail} />
             <Divider sx={{ mb: 2, borderColor: 'border.main' }} />
             <DescriptionPanel issueDetail={issueDetail} setIssueDetail={setIssueDetail} />
             <AttachmentsPanel issueDetail={issueDetail} setIssueDetail={setIssueDetail} />
+            <CommentsDialog issueDetail={issueDetail} setIssueDetail={setIssueDetail} />
         </Box>
     )
 }

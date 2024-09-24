@@ -221,6 +221,21 @@ class ApiClient {
         const { data } = await this.apiClient.get(`${endpoints.attachment.download}${attachmentId}/`, { responseType: 'blob' });
         return data;
     }
+
+    async createComment(issueId, payload) {
+        const { data } = await this.apiClient.post(`${endpoints.comment.create}${issueId}/`, payload);
+        return data;
+    }
+
+    async updateComment(commentId, payload) {
+        const { data } = await this.apiClient.patch(`${endpoints.comment.update}${commentId}/`, payload);
+        return data;
+    }
+
+    async deleteComment(commentId) {
+        const { data } = await this.apiClient.delete(`${endpoints.comment.update}${commentId}/`);
+        return data;
+    }
 }
 
 const baseURL = endpoints.baseUrl;
