@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -6,10 +6,12 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import DescriptionIcon from '@mui/icons-material/Description';
 import apiClient from '../../../api/apiClient';
 import DownloadIcon from '@mui/icons-material/Download';
-import axios from 'axios'; // Assuming Axios is imported elsewhere in the project
+import ConfirmDialog from '../../general/ConfirmDialog';
 
 const AttachmentsPanel = ({ issueDetail, setIssueDetail }) => {
     const fileInputRef = useRef(null);
+    const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+    const [indexToDelete, setIndexToDelete] = useState(null);
 
     const handleFileUpload = async (event) => {
         const files = Array.from(event.target.files);
@@ -62,6 +64,7 @@ const AttachmentsPanel = ({ issueDetail, setIssueDetail }) => {
             ...prevDetail,
             attachments: prevDetail.attachments.filter((_, i) => i !== index)
         }));
+        setConfirmDialogOpen(false);
     };
 
     const renderFilePreview = (file) => {
@@ -170,7 +173,10 @@ const AttachmentsPanel = ({ issueDetail, setIssueDetail }) => {
                                     backgroundColor: 'background.dark',
                                 },
                             }}
-                            onClick={() => handleDeleteAttachment(issueDetail.attachments.length - 1 - index)} // Adjusted index for deletion
+                            onClick={() => {
+                                setIndexToDelete(issueDetail.attachments.length - 1 - index);
+                                setConfirmDialogOpen(true);
+                            }}
                         >
                             <DeleteIcon fontSize="small" />
                         </IconButton>
@@ -185,6 +191,13 @@ const AttachmentsPanel = ({ issueDetail, setIssueDetail }) => {
                     onChange={handleFileUpload}
                 />
             </Box>
+            <ConfirmDialog
+                open={confirmDialogOpen}
+                handleClose={() => setConfirmDialogOpen(false)}
+                handleConfirm={() => handleDeleteAttachment(indexToDelete)}
+                title="Delete this attachment?"
+                content="Once you delete, it's gone for good."
+            />
         </Box>
     );
 };

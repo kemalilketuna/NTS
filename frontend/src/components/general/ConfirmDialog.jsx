@@ -23,7 +23,12 @@ const ConfirmDialog = ({ open, handleClose, handleConfirm, title, content }) => 
             open={open}
             onClose={handleClose}
             onClick={handleBackdropClick}
-            PaperProps={{ style: { padding: '5px 20px 10px 20px', width: '30vw', borderRadius: '5px', border: `1px solid ${theme.palette.border.main}` } }}
+            PaperProps={{
+                sx: {
+                    padding: '5px 20px 10px 20px', width: '30vw', borderRadius: '5px', border: `1px solid ${theme.palette.border.main}`,
+                    backgroundColor: theme.palette.background.main, // Set background to background.main
+                }
+            }}
         >
             <DialogTitle sx={{ color: 'text.secondary', fontSize: '1.5rem', display: 'flex', alignItems: 'center', paddingBottom: '7px' }}>
                 <PiWarningDiamondFill size={24} color={theme.palette.secondary.main} style={{ marginRight: '8px', marginBottom: '6px' }} />

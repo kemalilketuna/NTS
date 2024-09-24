@@ -83,8 +83,8 @@ const darkTheme = createTheme({
         },
         secondary: {
             main: '#E65100',
-            soft: '#d15558',
-            dark: '#980C0C',
+            soft: '#FF8C3B',
+            dark: '#FF8C3B',
         },
         border: {
             main: '#333c44',
