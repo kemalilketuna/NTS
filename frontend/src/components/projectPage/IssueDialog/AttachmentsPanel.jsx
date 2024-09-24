@@ -6,11 +6,11 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import DescriptionIcon from '@mui/icons-material/Description';
 import apiClient from '../../../api/apiClient';
 import DownloadIcon from '@mui/icons-material/Download';
-import ConfirmDialog from '../../general/ConfirmDialog';
+import ConfirmationDialog from '../../general/ConfirmationDialog';
 
 const AttachmentsPanel = ({ issueDetail, setIssueDetail }) => {
     const fileInputRef = useRef(null);
-    const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+    const [ConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
     const [indexToDelete, setIndexToDelete] = useState(null);
 
     const handleFileUpload = async (event) => {
@@ -64,7 +64,7 @@ const AttachmentsPanel = ({ issueDetail, setIssueDetail }) => {
             ...prevDetail,
             attachments: prevDetail.attachments.filter((_, i) => i !== index)
         }));
-        setConfirmDialogOpen(false);
+        setConfirmationDialogOpen(false);
     };
 
     const renderFilePreview = (file) => {
@@ -175,7 +175,7 @@ const AttachmentsPanel = ({ issueDetail, setIssueDetail }) => {
                             }}
                             onClick={() => {
                                 setIndexToDelete(issueDetail.attachments.length - 1 - index);
-                                setConfirmDialogOpen(true);
+                                setConfirmationDialogOpen(true);
                             }}
                         >
                             <DeleteIcon fontSize="small" />
@@ -191,9 +191,9 @@ const AttachmentsPanel = ({ issueDetail, setIssueDetail }) => {
                     onChange={handleFileUpload}
                 />
             </Box>
-            <ConfirmDialog
-                open={confirmDialogOpen}
-                handleClose={() => setConfirmDialogOpen(false)}
+            <ConfirmationDialog
+                open={ConfirmationDialogOpen}
+                handleClose={() => setConfirmationDialogOpen(false)}
                 handleConfirm={() => handleDeleteAttachment(indexToDelete)}
                 title="Delete this attachment?"
                 content="Once you delete, it's gone for good."

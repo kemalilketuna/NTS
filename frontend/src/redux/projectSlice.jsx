@@ -51,12 +51,12 @@ const projectSlice = createSlice({
         },
         addIssue: (state, action) => {
             const issue = action.payload;
-            const stage = state.projectDetail.stages.find(stage => stage.id === issue.stageId);
+            const stage = state.projectDetail.stages.find(stage => stage.id === issue.stage);
             stage.issues.push(issue);
         },
         removeIssue: (state, action) => {
             const issue = action.payload;
-            const stage = state.projectDetail.stages.find(stage => stage.id === issue.stageId);
+            const stage = state.projectDetail.stages.find(stage => stage.id === issue.stage);
             const issueIndex = stage.issues.findIndex(i => i.id === issue.id);
             if (issueIndex !== -1) {
                 stage.issues.splice(issueIndex, 1);
@@ -82,5 +82,5 @@ const projectSlice = createSlice({
 export const selectProject = (state) => state.project.projectDetail;
 export const selectColumns = (state) => state.project.projectDetail.stages;
 export const selectIssue = (state) => state.project.projectDetail.stages.issues;
-export const { setProjectDetail, setColumns, updateIssue, addIssue, changeIssueStage } = projectSlice.actions;
+export const { setProjectDetail, setColumns, updateIssue, addIssue, removeIssue, changeIssueStage } = projectSlice.actions;
 export default projectSlice.reducer;

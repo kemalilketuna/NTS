@@ -190,6 +190,11 @@ class ApiClient {
         return data;
     }
 
+    async deleteIssue(issueId) {
+        const { data } = await this.apiClient.delete(`${endpoints.issue.update}${issueId}/`);
+        return data;
+    }
+
     async getIssueDetail(issueId) {
         const { data } = await this.apiClient.get(`${endpoints.issue.detail}${issueId}/`);
         return data;

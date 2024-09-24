@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import { PiWarningDiamondFill } from "react-icons/pi";
 import { useTheme } from '@mui/material/styles';
 
-const ConfirmDialog = ({ open, handleClose, handleConfirm, title, content }) => {
+const ConfirmationDialog = ({ open, handleClose, handleConfirm, title, content }) => {
     const theme = useTheme();
 
     const handleBackdropClick = (event) => {
@@ -62,4 +62,4 @@ const ConfirmDialog = ({ open, handleClose, handleConfirm, title, content }) => 
     );
 };
 
-export default ConfirmDialog;
+export default ConfirmationDialog;

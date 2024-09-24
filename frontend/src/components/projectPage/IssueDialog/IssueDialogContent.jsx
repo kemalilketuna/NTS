@@ -5,6 +5,7 @@ import AttachmentsPanel from './AttachmentsPanel'
 import TitlePanel from './TitlePanel'
 import CreatedByPanel from './CreatedByPanel'
 import SelectPriorityPanel from './SelectPriorityPanel'
+import DeleteIssuePanel from './DeleteIssuePanel'
 
 const LeftPanel = ({ issueDetail, setIssueDetail }) => {
     return (
@@ -22,6 +23,7 @@ const RightPanel = ({ issueDetail, setIssueDetail }) => {
         <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'start', gap: 1 }}>
             <CreatedByPanel issueDetail={issueDetail} setIssueDetail={setIssueDetail} />
             <SelectPriorityPanel issueDetail={issueDetail} setIssueDetail={setIssueDetail} />
+            <DeleteIssuePanel issueDetail={issueDetail} />
         </Box>
     )
 }

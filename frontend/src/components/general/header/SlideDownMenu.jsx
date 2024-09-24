@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import UserFullCard from '../cards/UserFullCard';
 import AvatarButton from './AvatarButton';
 import ChangeThemeButton from '../ChangeThemeButton';
-import ConfirmDialog from '../ConfirmDialog';
+import ConfirmationDialog from '../ConfirmationDialog';
 
 const style = {
     menu: {
@@ -28,7 +28,7 @@ function SlideDownMenu() {
     // State management
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
-    const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+    const [ConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
 
     // Fetch user on mount and when user changes
     useEffect(() => {
@@ -41,7 +41,7 @@ function SlideDownMenu() {
     const handleClick = (event) => setAnchorEl(event.currentTarget);
     const handleClose = () => {
         setAnchorEl(null);
-        setConfirmDialogOpen(false);
+        setConfirmationDialogOpen(false);
     };
 
     const handleEditProfile = () => {
@@ -51,16 +51,16 @@ function SlideDownMenu() {
 
     const handleSignOut = () => {
         setAnchorEl(null);
-        setConfirmDialogOpen(true);
+        setConfirmationDialogOpen(true);
     };
 
     const handleConfirmSignOut = () => {
-        setConfirmDialogOpen(false);
+        setConfirmationDialogOpen(false);
         dispatch(clearUser());
         signOutFromApp();
     };
 
-    const handleCancelSignOut = () => setConfirmDialogOpen(false);
+    const handleCancelSignOut = () => setConfirmationDialogOpen(false);
 
     if (user === null) return null;
 
@@ -108,8 +108,8 @@ function SlideDownMenu() {
                     </Typography>
                 </MenuItem>
             </Menu >
-            <ConfirmDialog
-                open={confirmDialogOpen}
+            <ConfirmationDialog
+                open={ConfirmationDialogOpen}
                 handleClose={handleCancelSignOut}
                 handleConfirm={handleConfirmSignOut}
                 title="Confirm Sign Out"
