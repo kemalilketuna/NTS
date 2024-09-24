@@ -3,6 +3,7 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
 import { Button } from '@mui/material';
 import { FcGoogle } from "react-icons/fc";
+import apiClient from '../../api/apiClient';
 
 const provider = new GoogleAuthProvider().setCustomParameters({
     prompt: 'select_account'

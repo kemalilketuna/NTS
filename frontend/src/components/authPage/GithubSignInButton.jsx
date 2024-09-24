@@ -3,6 +3,7 @@ import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
 import { Button } from '@mui/material';
 import { FaGithub } from "react-icons/fa6";
+import apiClient from '../../api/apiClient';
 
 const provider = new GithubAuthProvider().setCustomParameters({
     prompt: 'select_account'
