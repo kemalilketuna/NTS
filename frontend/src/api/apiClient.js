@@ -222,8 +222,8 @@ class ApiClient {
         return data;
     }
 
-    async createComment(issueId, payload) {
-        const { data } = await this.apiClient.post(`${endpoints.comment.create}${issueId}/`, payload);
+    async createComment(payload) {
+        const { data } = await this.apiClient.post(`${endpoints.comment.create}`, payload);
         return data;
     }
 

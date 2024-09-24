@@ -6,16 +6,21 @@ import TitlePanel from './TitlePanel';
 import CreatedByPanel from './CreatedByPanel';
 import SelectPriorityPanel from './SelectPriorityPanel';
 import DeleteIssuePanel from './DeleteIssuePanel';
-import CommentsDialog from './CommentsDialog';
+import CommentsPanel from './CommentsPanel';
 
 const LeftPanel = ({ issueDetail, setIssueDetail }) => {
     return (
-        <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'start', overflowY: 'auto' }}>
+        <Box sx={{
+            width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'start', overflowY: 'auto',
+            '&::-webkit-scrollbar': {
+                display: 'none',
+            },
+        }}>
             <TitlePanel issueDetail={issueDetail} setIssueDetail={setIssueDetail} />
             <Divider sx={{ mb: 2, borderColor: 'border.main' }} />
             <DescriptionPanel issueDetail={issueDetail} setIssueDetail={setIssueDetail} />
             <AttachmentsPanel issueDetail={issueDetail} setIssueDetail={setIssueDetail} />
-            <CommentsDialog issueDetail={issueDetail} setIssueDetail={setIssueDetail} />
+            <CommentsPanel issueDetail={issueDetail} setIssueDetail={setIssueDetail} />
         </Box>
     )
 }

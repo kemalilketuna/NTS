@@ -92,6 +92,8 @@ class AttachmentFileSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     created_by = UserSerializer(read_only=True)
+    issue = serializers.UUIDField()
+    project = serializers.UUIDField()
 
     class Meta:
         model = Comment
