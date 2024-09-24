@@ -55,3 +55,16 @@ class AttachmentFileRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyA
 
     def get_queryset(self):
         return AttachmentFile.objects.filter(id=self.kwargs["pk"])
+
+
+class CommentCreateView(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = CommentSerializer
+
+
+class CommentRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated, IsProjectMember]
+    serializer_class = CommentSerializer
+
+    def get_queryset(self):
+        return Comment.objects.filter(id=self.kwargs["pk"])

@@ -19,3 +19,12 @@ attachment_patterns = [
         name="attachment-file-retrieve-update-destroy",
     ),
 ]
+
+comment_patterns = [
+    path("create/", CommentCreateView.as_view(), name="comment-create"),
+    path(
+        "<uuid:pk>/",
+        CommentRetrieveUpdateDestroyAPIView.as_view(),
+        name="comment-retrieve-update-destroy",
+    ),
+]

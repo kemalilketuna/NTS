@@ -67,6 +67,11 @@ class AttachmentFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = AttachmentFile
         fields = "__all__"
+        read_only_fields = [
+            "created_by",
+            "created_at",
+            "updated_at",
+        ]
 
     def create(self, validated_data):
         user = self.context["request"].user
@@ -91,7 +96,27 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = "__all__"
-        read_only_fields = ["created_by"]
+        read_only_fields = [
+            "created_by",
+            "created_at",
+            "updated_at",
+        ]
+
+    def create(self, validated_data):
+        user = self.context["request"].user
+        project = Project.objects.get(id=validated_data.pop("project"))
+
+        if not user.has_perm("project_manager.edit_project", project):
+            raise PermissionDenied(
+                "You don't have permission to create comments in this project."
+            )
+
+        return Comment.objects.create(
+            issue_id=validated_data.pop("issue"),
+            project=project,
+            created_by=user,
+            **validated_data
+        )
 
 
 class IssueDetailSerializer(serializers.ModelSerializer):
