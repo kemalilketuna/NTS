@@ -50,7 +50,7 @@ const StageComponent = ({ columnId, items, columnName, handleAddIssue, showInput
                 {showConfetti && (
                     <Confetti
                         width={columnRef.current?.offsetWidth}
-                        height={columnRef.current?.offsetHeight + 400}
+                        height={columnRef.current?.offsetHeight}
                         numberOfPieces={800}
                         recycle={false}
                         onConfettiComplete={() => setShowConfetti(false)}
