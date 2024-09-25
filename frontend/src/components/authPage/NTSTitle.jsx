@@ -43,7 +43,7 @@ function NTSTitle() {
             <Line name="Nartian" paddingLeft={0} />
             <Line name="Task " paddingLeft={'7.5vw'} />
             <Line name="System" paddingLeft={'15vw'} />
-            <Subline name="A SIMPLE COLLABRATION TOOL" paddingLeft={0} />
+            <Subline name="A SIMPLE COLLABORATION TOOL" paddingLeft={0} />
         </Box>
     )
 }
