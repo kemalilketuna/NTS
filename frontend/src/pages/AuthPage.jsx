@@ -11,9 +11,6 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'center',
     },
-    gridContainer: {
-        maxWidth: '1200px',
-    },
     authBox: {
         display: 'flex',
         alignItems: 'center',
@@ -29,7 +26,7 @@ const AuthPage = () => {
     return (
 
         <Box sx={styles.page}>
-            <Grid2 container sx={styles.gridContainer}>
+            <Grid2 container>
                 <Grid2 xs={12} md={6}>
                     <Box sx={styles.authBox}>
                         <NTSTitle />
